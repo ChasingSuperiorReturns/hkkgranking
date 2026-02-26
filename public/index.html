@@ -1,0 +1,1676 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>香港幼稚園排名</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <style>
+      :root {
+        --bg: #f3f6fb;
+        --panel: #ffffff;
+        --blue: #1d4ed8;
+        --blue-dark: #1e3a8a;
+        --text: #0f172a;
+        --muted: #475569;
+        --line: #dbe3ef;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      .wrap {
+        max-width: 1150px;
+        margin: 0 auto;
+        padding: 22px;
+      }
+
+      .hero {
+        background: var(--panel);
+        border-radius: 14px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+      }
+
+      .hero-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      .hero p {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .meta-panel {
+        margin-top: 12px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #f8fafc;
+        display: grid;
+        gap: 6px;
+      }
+
+      .meta-row {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .filters {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .filters select,
+      .filters input {
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-family: inherit;
+        background: #fff;
+      }
+
+      .account-panel {
+        margin-top: 12px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #f8fafc;
+      }
+
+      .account-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-top: 8px;
+      }
+
+      .account-row input {
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-family: inherit;
+        background: #fff;
+      }
+
+      .review-form {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 8px;
+      }
+
+      .review-form select,
+      .review-form textarea {
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-family: inherit;
+        background: #fff;
+      }
+
+      .verify-message {
+        margin-top: 8px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      button {
+        border-radius: 10px;
+        border: none;
+        background: var(--blue);
+        color: #fff;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      button:hover {
+        background: var(--blue-dark);
+      }
+
+      .status {
+        margin: 14px 0;
+        padding: 10px 12px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--muted);
+      }
+
+      .ad-slot {
+        margin: 12px 0;
+        border: 1px dashed #94a3b8;
+        border-radius: 10px;
+        background: #f8fafc;
+        padding: 10px;
+      }
+
+      .ad-label {
+        font-size: 12px;
+        color: #64748b;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .ad-box {
+        min-height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #334155;
+        font-size: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .area-section {
+        background: var(--panel);
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        padding: 14px;
+        margin-bottom: 14px;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+      }
+
+      .area-section h3 {
+        margin: 0 0 10px;
+      }
+
+      .area-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .area-table th,
+      .area-table td {
+        border: 1px solid var(--line);
+        padding: 10px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .area-table th {
+        background: #eef2f7;
+        font-weight: 700;
+      }
+
+      .school-row {
+        cursor: pointer;
+      }
+
+      .school-row:hover {
+        background: #f1f5ff;
+      }
+
+      .subtext {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .profile {
+        background: var(--panel);
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        padding: 16px;
+      }
+
+      .toolbar {
+        margin-bottom: 12px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .chat-toggle {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 80;
+      }
+
+      .chat-panel {
+        position: fixed;
+        right: 18px;
+        bottom: 72px;
+        width: 340px;
+        max-width: calc(100vw - 24px);
+        height: 440px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+        z-index: 80;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-head {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        font-weight: 700;
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+        display: grid;
+        gap: 8px;
+        align-content: start;
+      }
+
+      .chat-bubble {
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-size: 13px;
+        line-height: 1.4;
+        max-width: 90%;
+      }
+
+      .chat-bot {
+        background: #eef2ff;
+        border: 1px solid #c7d2fe;
+      }
+
+      .chat-user {
+        background: #dbeafe;
+        border: 1px solid #93c5fd;
+        margin-left: auto;
+      }
+
+      .chat-quick {
+        padding: 0 10px 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .chat-quick button {
+        background: #e2e8f0;
+        color: #0f172a;
+        padding: 6px 8px;
+        font-size: 12px;
+      }
+
+      .chat-input {
+        border-top: 1px solid var(--line);
+        padding: 10px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-family: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <div class="hero-top">
+          <h1 id="heroTitle">香港幼稚園排名</h1>
+          <button id="langToggle">EN</button>
+        </div>
+        <p id="heroSubtitle">按地區顯示每區排名前 5 的幼稚園</p>
+        <p id="heroDisclaimer" class="subtext"></p>
+        <div class="meta-panel">
+          <div class="meta-row" id="metaSource"></div>
+          <div class="meta-row" id="metaTotal"></div>
+          <div class="meta-row" id="metaUpdated"></div>
+          <div class="meta-row" id="metaMethod"></div>
+        </div>
+        <div class="filters">
+          <select id="filterArea"></select>
+          <select id="filterType"></select>
+          <input id="filterScore" type="number" min="0" max="5" step="0.1" placeholder="最低平均分" />
+          <button id="filterApply">套用篩選</button>
+          <button id="filterReset">重設</button>
+        </div>
+        <div class="account-panel">
+          <div class="meta-row" id="authStatusText"></div>
+          <div class="account-row">
+            <button id="googleLoginBtn">Google 登入</button>
+            <button id="sendCodeBtn">發送驗證碼</button>
+            <input id="verifyCodeInput" type="text" maxlength="6" placeholder="6位驗證碼" />
+            <button id="verifyCodeBtn">驗證電郵</button>
+          </div>
+          <div id="captchaContainer" class="account-row"></div>
+          <div id="verifyMessage" class="verify-message"></div>
+        </div>
+      </section>
+
+      <div id="status" class="status">正在載入學校資料...</div>
+
+      <section id="homeView">
+        <div class="ad-slot" id="homeAdSlot">
+          <div class="ad-label" id="homeAdLabel">廣告</div>
+          <div class="ad-box" id="homeAdBox"></div>
+        </div>
+        <div id="areaContainer"></div>
+      </section>
+
+      <section id="areaView" class="hidden">
+        <div class="toolbar">
+          <button id="backToHomeBtn">← 返回首頁</button>
+        </div>
+        <article class="area-section">
+          <h3 id="areaTitle"></h3>
+          <div class="ad-slot" id="areaAdSlot">
+            <div class="ad-label" id="areaAdLabel">廣告</div>
+            <div class="ad-box" id="areaAdBox"></div>
+          </div>
+          <table class="area-table">
+            <thead>
+              <tr>
+                <th id="areaColSchool">學校</th>
+                <th id="areaColCampus">校舍</th>
+                <th id="areaColType">類別</th>
+                <th id="areaColGoogle">Google 評分</th>
+                <th id="areaColAvg">平均分</th>
+                <th id="areaColReviews">評論數</th>
+              </tr>
+            </thead>
+            <tbody id="areaTableBody"></tbody>
+          </table>
+        </article>
+      </section>
+
+      <section id="profileView" class="hidden">
+        <div class="toolbar">
+          <button id="backBtn">← 返回首頁</button>
+        </div>
+        <article id="profileCard" class="profile"></article>
+        <div class="ad-slot" id="profileAdSlot">
+          <div class="ad-label" id="profileAdLabel">廣告</div>
+          <div class="ad-box" id="profileAdBox"></div>
+        </div>
+      </section>
+    </main>
+
+    <button id="chatToggle" class="chat-toggle">助理</button>
+    <section id="chatPanel" class="chat-panel hidden">
+      <div class="chat-head" id="chatTitle">網站助理</div>
+      <div id="chatMessages" class="chat-messages"></div>
+      <div id="chatQuick" class="chat-quick"></div>
+      <div class="chat-input">
+        <input id="chatInput" type="text" placeholder="輸入問題，例如：如何驗證電郵？" />
+        <button id="chatSend">送出</button>
+      </div>
+    </section>
+
+    <script>
+      const statusEl = document.getElementById('status');
+      const areaContainer = document.getElementById('areaContainer');
+      const homeView = document.getElementById('homeView');
+      const areaView = document.getElementById('areaView');
+      const profileView = document.getElementById('profileView');
+      const profileCard = document.getElementById('profileCard');
+      const backBtn = document.getElementById('backBtn');
+      const backToHomeBtn = document.getElementById('backToHomeBtn');
+      const langToggle = document.getElementById('langToggle');
+      const heroTitle = document.getElementById('heroTitle');
+      const heroSubtitle = document.getElementById('heroSubtitle');
+      const heroDisclaimer = document.getElementById('heroDisclaimer');
+      const filterArea = document.getElementById('filterArea');
+      const filterType = document.getElementById('filterType');
+      const filterScore = document.getElementById('filterScore');
+      const filterApply = document.getElementById('filterApply');
+      const filterReset = document.getElementById('filterReset');
+      const areaTitle = document.getElementById('areaTitle');
+      const areaTableBody = document.getElementById('areaTableBody');
+      const areaColSchool = document.getElementById('areaColSchool');
+      const areaColCampus = document.getElementById('areaColCampus');
+      const areaColType = document.getElementById('areaColType');
+      const areaColAvg = document.getElementById('areaColAvg');
+      const areaColReviews = document.getElementById('areaColReviews');
+      const areaColGoogle = document.getElementById('areaColGoogle');
+      const homeAdLabel = document.getElementById('homeAdLabel');
+      const areaAdLabel = document.getElementById('areaAdLabel');
+      const profileAdLabel = document.getElementById('profileAdLabel');
+      const homeAdBox = document.getElementById('homeAdBox');
+      const areaAdBox = document.getElementById('areaAdBox');
+      const profileAdBox = document.getElementById('profileAdBox');
+      const metaSource = document.getElementById('metaSource');
+      const metaTotal = document.getElementById('metaTotal');
+      const metaUpdated = document.getElementById('metaUpdated');
+      const metaMethod = document.getElementById('metaMethod');
+      const authStatusText = document.getElementById('authStatusText');
+      const googleLoginBtn = document.getElementById('googleLoginBtn');
+      const sendCodeBtn = document.getElementById('sendCodeBtn');
+      const verifyCodeInput = document.getElementById('verifyCodeInput');
+      const verifyCodeBtn = document.getElementById('verifyCodeBtn');
+      const captchaContainer = document.getElementById('captchaContainer');
+      const verifyMessage = document.getElementById('verifyMessage');
+      const chatToggle = document.getElementById('chatToggle');
+      const chatPanel = document.getElementById('chatPanel');
+      const chatTitle = document.getElementById('chatTitle');
+      const chatMessages = document.getElementById('chatMessages');
+      const chatQuick = document.getElementById('chatQuick');
+      const chatInput = document.getElementById('chatInput');
+      const chatSend = document.getElementById('chatSend');
+
+      const adConfig = {
+        publisherId: 'ca-pub-XXXXXXXXXXXXXXXX',
+        slots: {
+          home: '1111111111',
+          area: '2222222222',
+          profile: '3333333333',
+        },
+      };
+
+      const i18n = {
+        zh: {
+          heroTitle: '🌈 香港幼稚園排名',
+          heroSubtitle: '按地區顯示每區排名前 5 的幼稚園',
+          disclaimer: '本網站排名不接受任何學校付費或贊助，排名純粹由用戶評分及評論數據決定。',
+          loadingSchools: '正在載入學校資料...',
+          loadingProfile: '正在載入學校檔案...',
+          showingTop5: '已顯示每區前 5 間學校。',
+          showingAreaAll: '已顯示此區全部學校。',
+          backHome: '← 返回首頁',
+          viewAll: '查看全部',
+          applyFilters: '套用篩選',
+          resetFilters: '重設',
+          allAreas: '全部地區',
+          allTypes: '全部類別',
+          minAvgPlaceholder: '最低平均分',
+          adLabel: '廣告',
+          adHome: '首頁廣告位置（728x90 / 自適應）',
+          adArea: '地區頁廣告位置（728x90 / 自適應）',
+          adProfile: '學校頁廣告位置（728x90 / 自適應）',
+          noSchools: '沒有學校資料',
+          school: '學校',
+          campus: '校舍',
+          type: '類別',
+          avg: '平均分',
+          reviews: '評論數',
+           googleScore: 'Google 評分',
+          googleAddress: 'Google 地址',
+          dataSource: '資料來源',
+          totalSchools: '學校總數',
+          updatedAt: '更新時間',
+          method: '排名方法',
+          methodText: '先按網站平均評分排序，再按評論數排序。',
+          sourceText: '教育局幼稚園概覽（KGP）公開資料',
+          commentsHidden: '評論內容暫時隱藏。',
+          viewingProfile: '正在查看學校檔案：',
+          chineseName: '中文名稱',
+          englishName: '英文名稱',
+          district: '地區',
+          area: '分區',
+          address: '地址',
+          na: '不適用',
+          failed: '頁面載入失敗',
+          authGuest: '目前未登入（評論功能將要求登入）',
+          authLoggedIn: '已登入：',
+          authEmailVerified: '電郵已驗證，可發表評論。',
+          authEmailUnverified: '電郵未驗證，發表評論前請先驗證。',
+          loginWithGoogle: 'Google 登入',
+          sendVerifyCode: '發送驗證碼',
+          verifyEmail: '驗證電郵',
+          verifyCodePlaceholder: '6位驗證碼',
+          captchaMissing: '請先完成 CAPTCHA 驗證。',
+          verifyCodeSent: '驗證碼已發送。請查看電郵。',
+          verifyCodeSuccess: '電郵驗證成功。',
+          loginRequired: '請先登入 Google。',
+          captchaNotConfigured: 'CAPTCHA 未設定。請填寫 CAPTCHA_SITE_KEY。',
+          reviewTitle: '提交評分',
+          reviewRating: '評分（1-5）',
+          reviewComment: '評語（選填）',
+          reviewSubmit: '提交評分',
+          reviewNeedLogin: '請先使用 Google 登入。',
+          reviewNeedVerify: '提交評分前請先完成電郵驗證。',
+          reviewSuccess: '評分已提交。',
+          chatToggle: '助理',
+          chatTitle: '網站助理',
+          chatPlaceholder: '輸入問題，例如：如何驗證電郵？',
+          chatSend: '送出',
+          chatWelcome: '你好！我可以幫你快速導覽網站。',
+          chatHint: '你可以問：如何登入、如何驗證、如何評分、查看某區學校。',
+          chatTop5: '此頁會顯示各區前 5 名。你也可以點擊「查看全部」查看該區完整名單。',
+          chatLogin: '請點擊上方「Google 登入」按鈕完成登入。',
+          chatVerify: '登入後按「發送驗證碼」，輸入6位碼，再按「驗證電郵」。',
+          chatReview: '打開任何學校頁面，下方有「提交評分」表單。',
+          chatAreas: '你可以說「屯門」或「沙田」，我會直接帶你到該區頁面。',
+          chatUnknown: '我暫時未理解。你可問：登入、驗證、評分、地區、top 5。',
+          chatQuickTop5: '什麼是 Top 5？',
+          chatQuickVerify: '如何驗證電郵？',
+          chatQuickReview: '如何評分？',
+          chatQuickArea: '去屯門區',
+          chatNavigating: '正在帶你前往：',
+        },
+        en: {
+          heroTitle: '🌈 HK Kindergarten Ranking',
+          heroSubtitle: 'Top 5 kindergartens by each area in Hong Kong',
+          disclaimer: 'We are not paid or sponsored by any school. Rankings are determined purely by user ratings and review activity.',
+          loadingSchools: 'Loading schools...',
+          loadingProfile: 'Loading school profile...',
+          showingTop5: 'Showing top 5 schools per area.',
+          showingAreaAll: 'Showing all schools in this area.',
+          backHome: '← Back to Home',
+          viewAll: 'View all',
+          applyFilters: 'Apply filters',
+          resetFilters: 'Reset',
+          allAreas: 'All areas',
+          allTypes: 'All types',
+          minAvgPlaceholder: 'Min average score',
+          adLabel: 'Advertisement',
+          adHome: 'Home ad slot (728x90 / Responsive)',
+          adArea: 'Area page ad slot (728x90 / Responsive)',
+          adProfile: 'Profile page ad slot (728x90 / Responsive)',
+          noSchools: 'No schools',
+          school: 'School',
+          campus: 'Campus',
+          type: 'Type',
+          avg: 'Avg',
+          reviews: 'Reviews',
+           googleScore: 'Google Score',
+          googleAddress: 'Google Address',
+          dataSource: 'Data source',
+          totalSchools: 'Total schools',
+          updatedAt: 'Updated at',
+          method: 'Ranking method',
+          methodText: 'Sorted by site average score, then review count.',
+          sourceText: 'EDB KGP public listing data',
+          commentsHidden: 'Comments are hidden for now.',
+          viewingProfile: 'Viewing profile: ',
+          chineseName: 'Chinese Name',
+          englishName: 'English Name',
+          district: 'District',
+          area: 'Area',
+          address: 'Address',
+          na: 'N/A',
+          failed: 'Failed to load page',
+          authGuest: 'You are not logged in (login required for reviews).',
+          authLoggedIn: 'Logged in as: ',
+          authEmailVerified: 'Email is verified. You can submit reviews.',
+          authEmailUnverified: 'Email is not verified yet. Verify before submitting reviews.',
+          loginWithGoogle: 'Sign in with Google',
+          sendVerifyCode: 'Send code',
+          verifyEmail: 'Verify email',
+          verifyCodePlaceholder: '6-digit code',
+          captchaMissing: 'Please complete CAPTCHA first.',
+          verifyCodeSent: 'Verification code sent. Check your inbox.',
+          verifyCodeSuccess: 'Email verification successful.',
+          loginRequired: 'Please sign in with Google first.',
+          captchaNotConfigured: 'CAPTCHA is not configured. Set CAPTCHA_SITE_KEY.',
+          reviewTitle: 'Submit Rating',
+          reviewRating: 'Rating (1-5)',
+          reviewComment: 'Comment (optional)',
+          reviewSubmit: 'Submit rating',
+          reviewNeedLogin: 'Please sign in with Google first.',
+          reviewNeedVerify: 'Please verify your email before submitting a rating.',
+          reviewSuccess: 'Rating submitted.',
+          chatToggle: 'Assistant',
+          chatTitle: 'Site Assistant',
+          chatPlaceholder: 'Ask a question, e.g. how to verify email?',
+          chatSend: 'Send',
+          chatWelcome: 'Hi! I can help you navigate this site quickly.',
+          chatHint: 'Try asking: how to login, verify email, submit review, or open an area.',
+          chatTop5: 'This page shows top 5 schools by each area. Click "View all" for a full area list.',
+          chatLogin: 'Click the "Sign in with Google" button at the top.',
+          chatVerify: 'After login, click "Send code", enter the 6-digit code, then click "Verify email".',
+          chatReview: 'Open any school profile and use the "Submit rating" form at the bottom.',
+          chatAreas: 'You can say "Tuen Mun" or "Sha Tin" and I will open that area page.',
+          chatUnknown: 'I did not understand that yet. Try: login, verify, review, area, top 5.',
+          chatQuickTop5: 'What is Top 5?',
+          chatQuickVerify: 'How to verify email?',
+          chatQuickReview: 'How to submit review?',
+          chatQuickArea: 'Go to Tuen Mun',
+          chatNavigating: 'Navigating to: ',
+        },
+      };
+
+      const areaLabel = {
+        central: { zh: '中西區', en: 'Central & Western' },
+        hkeast: { zh: '港島東區', en: 'HK East' },
+        islands: { zh: '離島區', en: 'Islands' },
+        southern: { zh: '南區', en: 'Southern' },
+        wanchai: { zh: '灣仔區', en: 'Wan Chai' },
+        kwaichung: { zh: '葵青區', en: 'Kwai Chung & Tsing Yi' },
+        tsuenwan: { zh: '荃灣區', en: 'Tsuen Wan' },
+        tuenmun: { zh: '屯門區', en: 'Tuen Mun' },
+        yuenlong: { zh: '元朗區', en: 'Yuen Long' },
+        north: { zh: '北區', en: 'North' },
+        shatin: { zh: '沙田區', en: 'Sha Tin' },
+        taipo: { zh: '大埔區', en: 'Tai Po' },
+        kowlooncity: { zh: '九龍城區', en: 'Kowloon City' },
+        kwuntong: { zh: '觀塘區', en: 'Kwun Tong' },
+        saikung: { zh: '西貢區', en: 'Sai Kung' },
+        shamshuipo: { zh: '深水埗區', en: 'Sham Shui Po' },
+        wongtaisin: { zh: '黃大仙區', en: 'Wong Tai Sin' },
+        yautsimmongkok: { zh: '油尖旺區', en: 'Yau Tsim & Mong Kok' },
+      };
+
+      let currentLang = 'zh';
+      let cachedGroups = [];
+      let allSchoolsCache = [];
+      let cachedAreaSchools = [];
+      let cachedAreaKey = '';
+      let cachedProfile = null;
+      let filterState = {
+        area: '',
+        type: '',
+        minScore: '',
+      };
+      let authUser = null;
+      let captchaConfig = null;
+      let captchaToken = '';
+      let captchaWidgetId = null;
+      let captchaProviderLoaded = false;
+      let chatInitialized = false;
+
+      function isAdsConfigured() {
+        return (
+          /^ca-pub-\d{16}$/.test(adConfig.publisherId) &&
+          /^\d+$/.test(adConfig.slots.home) &&
+          /^\d+$/.test(adConfig.slots.area) &&
+          /^\d+$/.test(adConfig.slots.profile)
+        );
+      }
+
+      function mountAd(adBoxEl, slotId) {
+        if (!adBoxEl || !slotId) return;
+
+        adBoxEl.innerHTML = `
+          <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="${adConfig.publisherId}"
+            data-ad-slot="${slotId}"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        `;
+
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+          adBoxEl.textContent = currentLang === 'zh' ? '廣告載入中' : 'Loading ad';
+        }
+      }
+
+      function setupAds() {
+        if (!isAdsConfigured()) {
+          homeAdBox.textContent = t('adHome');
+          areaAdBox.textContent = t('adArea');
+          profileAdBox.textContent = t('adProfile');
+          return;
+        }
+
+        mountAd(homeAdBox, adConfig.slots.home);
+        mountAd(areaAdBox, adConfig.slots.area);
+        mountAd(profileAdBox, adConfig.slots.profile);
+      }
+
+      function t(key) {
+        return i18n[currentLang][key] || key;
+      }
+
+      function appendChatMessage(role, text) {
+        const bubble = document.createElement('div');
+        bubble.className = `chat-bubble ${role === 'user' ? 'chat-user' : 'chat-bot'}`;
+        bubble.textContent = text;
+        chatMessages.appendChild(bubble);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function renderChatQuickActions() {
+        chatQuick.innerHTML = '';
+        const quickIntents = [
+          { label: t('chatQuickTop5'), intent: 'top5' },
+          { label: t('chatQuickVerify'), intent: 'verify' },
+          { label: t('chatQuickReview'), intent: 'review' },
+          { label: t('chatQuickArea'), intent: 'tuenmun' },
+        ];
+
+        for (const quick of quickIntents) {
+          const btn = document.createElement('button');
+          btn.textContent = quick.label;
+          btn.addEventListener('click', async () => {
+            appendChatMessage('user', quick.label);
+            await handleChatIntent(quick.intent);
+          });
+          chatQuick.appendChild(btn);
+        }
+      }
+
+      function detectAreaIntent(message) {
+        const text = String(message || '').toLowerCase().trim();
+        const matchers = [
+          { key: 'tuenmun', terms: ['屯門', 'tuen mun', 'tuenmun'] },
+          { key: 'shatin', terms: ['沙田', 'sha tin', 'shatin'] },
+          { key: 'yuenlong', terms: ['元朗', 'yuen long', 'yuenlong'] },
+          { key: 'tsuenwan', terms: ['荃灣', 'tsuen wan', 'tsuenwan'] },
+          { key: 'north', terms: ['北區', 'north district', 'north'] },
+          { key: 'taipo', terms: ['大埔', 'tai po', 'taipo'] },
+          { key: 'kowlooncity', terms: ['九龍城', 'kowloon city', 'kowlooncity'] },
+          { key: 'kwuntong', terms: ['觀塘', 'kwun tong', 'kwuntong'] },
+          { key: 'wanchai', terms: ['灣仔', 'wan chai', 'wanchai'] },
+          { key: 'central', terms: ['中西區', 'central', 'central and western'] },
+        ];
+
+        for (const item of matchers) {
+          if (item.terms.some((term) => text.includes(term))) return item.key;
+        }
+
+        return '';
+      }
+
+      async function navigateAreaFromChat(areaKey) {
+        if (!areaKey) return;
+        appendChatMessage('bot', `${t('chatNavigating')}${formatArea(areaKey)}`);
+        history.pushState({ areaKey }, '', `/?area=${encodeURIComponent(areaKey)}`);
+        await loadArea(areaKey);
+      }
+
+      async function handleChatIntent(rawText) {
+        const text = String(rawText || '').toLowerCase().trim();
+        const areaKey = detectAreaIntent(text);
+        if (areaKey) {
+          await navigateAreaFromChat(areaKey);
+          return;
+        }
+
+        if (text.includes('top') || text.includes('排行') || text.includes('前 5') || text.includes('top5')) {
+          appendChatMessage('bot', t('chatTop5'));
+          return;
+        }
+
+        if (text.includes('login') || text.includes('登入') || text.includes('google')) {
+          appendChatMessage('bot', t('chatLogin'));
+          return;
+        }
+
+        if (text.includes('verify') || text.includes('驗證') || text.includes('電郵') || text.includes('email')) {
+          appendChatMessage('bot', t('chatVerify'));
+          return;
+        }
+
+        if (text.includes('review') || text.includes('評分') || text.includes('評論')) {
+          appendChatMessage('bot', t('chatReview'));
+          return;
+        }
+
+        if (text.includes('area') || text.includes('地區')) {
+          appendChatMessage('bot', t('chatAreas'));
+          return;
+        }
+
+        appendChatMessage('bot', t('chatUnknown'));
+      }
+
+      function initializeChat() {
+        if (!chatInitialized) {
+          appendChatMessage('bot', t('chatWelcome'));
+          appendChatMessage('bot', t('chatHint'));
+          chatInitialized = true;
+        }
+        renderChatQuickActions();
+      }
+
+      function setVerifyMessage(message) {
+        verifyMessage.textContent = message || '';
+      }
+
+      function renderAuthStatus() {
+        if (!authUser) {
+          authStatusText.textContent = t('authGuest');
+          sendCodeBtn.disabled = true;
+          verifyCodeBtn.disabled = true;
+          return;
+        }
+
+        authStatusText.textContent = `${t('authLoggedIn')}${authUser.email}`;
+        sendCodeBtn.disabled = Boolean(authUser.emailVerifiedAt);
+        verifyCodeBtn.disabled = Boolean(authUser.emailVerifiedAt);
+
+        if (authUser.emailVerifiedAt) {
+          setVerifyMessage(t('authEmailVerified'));
+        } else {
+          setVerifyMessage(t('authEmailUnverified'));
+        }
+      }
+
+      async function loadAuthMe() {
+        try {
+          authUser = await fetchJson('/api/auth/me');
+        } catch {
+          authUser = null;
+        }
+        renderAuthStatus();
+      }
+
+      function resetCaptchaWidget() {
+        captchaToken = '';
+        if (!captchaConfig?.siteKey) return;
+
+        if (captchaConfig.provider === 'turnstile' && window.turnstile && captchaWidgetId !== null) {
+          window.turnstile.reset(captchaWidgetId);
+        }
+
+        if (captchaConfig.provider === 'recaptcha' && window.grecaptcha && captchaWidgetId !== null) {
+          window.grecaptcha.reset(captchaWidgetId);
+        }
+      }
+
+      async function loadCaptchaConfig() {
+        try {
+          captchaConfig = await fetchJson('/api/auth/captcha-config');
+        } catch {
+          captchaConfig = { provider: 'recaptcha', siteKey: '', enabled: false };
+        }
+      }
+
+      function loadCaptchaScript() {
+        if (!captchaConfig?.siteKey) {
+          captchaContainer.textContent = t('captchaNotConfigured');
+          return Promise.resolve();
+        }
+
+        if (captchaProviderLoaded) return Promise.resolve();
+
+        const script = document.createElement('script');
+        script.async = true;
+        script.defer = true;
+        script.src =
+          captchaConfig.provider === 'recaptcha'
+            ? 'https://www.google.com/recaptcha/api.js?render=explicit'
+            : 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+
+        return new Promise((resolve, reject) => {
+          script.onload = () => {
+            captchaProviderLoaded = true;
+            resolve();
+          };
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+
+      function renderCaptchaWidget() {
+        if (!captchaConfig?.siteKey) return;
+        captchaContainer.innerHTML = '';
+
+        const widgetHost = document.createElement('div');
+        captchaContainer.appendChild(widgetHost);
+
+        if (captchaConfig.provider === 'recaptcha' && window.grecaptcha) {
+          captchaWidgetId = window.grecaptcha.render(widgetHost, {
+            sitekey: captchaConfig.siteKey,
+            callback: (token) => {
+              captchaToken = token;
+            },
+            'expired-callback': () => {
+              captchaToken = '';
+            },
+          });
+        }
+
+        if (captchaConfig.provider === 'turnstile' && window.turnstile) {
+          captchaWidgetId = window.turnstile.render(widgetHost, {
+            sitekey: captchaConfig.siteKey,
+            callback: (token) => {
+              captchaToken = token;
+            },
+            'expired-callback': () => {
+              captchaToken = '';
+            },
+          });
+        }
+      }
+
+      function getCaptchaTokenOrFail() {
+        if (!captchaConfig?.siteKey) {
+          // dev bypass – backend also bypasses when not configured
+          return 'dev-bypass';
+        }
+
+        if (!captchaToken) {
+          setVerifyMessage(t('captchaMissing'));
+          return '';
+        }
+
+        return captchaToken;
+      }
+
+      async function sendEmailVerificationCode() {
+        if (!authUser) {
+          setVerifyMessage(t('loginRequired'));
+          return;
+        }
+
+        const token = getCaptchaTokenOrFail();
+        if (!token) return;
+
+        const response = await fetch('/api/auth/email/send-code', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ captchaToken: token }),
+        });
+
+        const json = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          setVerifyMessage(json.error || t('failed'));
+          resetCaptchaWidget();
+          return;
+        }
+
+        setVerifyMessage(json.devCode ? `${t('verifyCodeSent')} (${json.devCode})` : t('verifyCodeSent'));
+        resetCaptchaWidget();
+      }
+
+      async function verifyEmailCode() {
+        if (!authUser) {
+          setVerifyMessage(t('loginRequired'));
+          return;
+        }
+
+        const code = String(verifyCodeInput.value || '').trim();
+        const token = getCaptchaTokenOrFail();
+        if (!token) return;
+
+        const response = await fetch('/api/auth/email/verify', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, captchaToken: token }),
+        });
+
+        const json = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          setVerifyMessage(json.error || t('failed'));
+          resetCaptchaWidget();
+          return;
+        }
+
+        setVerifyMessage(t('verifyCodeSuccess'));
+        verifyCodeInput.value = '';
+        resetCaptchaWidget();
+        await loadAuthMe();
+      }
+
+      function formatArea(areaKey) {
+        const key = String(areaKey || '').toLowerCase();
+        return areaLabel[key]?.[currentLang] || areaKey;
+      }
+
+      function normalizeBaseName(name) {
+        return String(name || '')
+          .replace(/[（(][^）)]*[）)]/g, '')
+          .replace(/[^\p{L}\p{N}]+/gu, '')
+          .toLowerCase()
+          .trim();
+      }
+
+      function extractCampusFromName(name) {
+        const text = String(name || '');
+        const match = text.match(/[（(]([^）)]+)[）)]/);
+        return match ? match[1].trim() : '';
+      }
+
+      function canonicalSchoolKey(school) {
+        const rawName = String(school.chineseName || school.name || '');
+        const campus =
+          extractCampusFromName(school.chineseName || '') ||
+          extractCampusFromName(school.name || '') ||
+          String(school.district || '');
+
+        const normalizedName = rawName
+          .normalize('NFKC')
+          .replace(/[（(][^）)]*[）)]/g, '')
+          .replace(/KINDERGARTEN|NURSERY|PRE\s*-?SCHOOL|INTERNATIONAL/gi, '')
+          .replace(/幼稚園|幼兒園|幼兒學校|國際/g, '')
+          .replace(/[^\p{L}\p{N}]+/gu, '')
+          .toLowerCase()
+          .trim();
+
+        const normalizedCampus = String(campus)
+          .normalize('NFKC')
+          .replace(/[^\p{L}\p{N}]+/gu, '')
+          .toLowerCase()
+          .trim();
+
+        return `${normalizedName}::${normalizedCampus}`;
+      }
+
+      function choosePreferredSchool(existing, incoming) {
+        const existingIsKg = /KINDERGARTEN|幼稚園/i.test(existing.name || '') || /幼稚園/.test(existing.chineseName || '');
+        const incomingIsKg = /KINDERGARTEN|幼稚園/i.test(incoming.name || '') || /幼稚園/.test(incoming.chineseName || '');
+
+        if (incomingIsKg && !existingIsKg) return incoming;
+        if (!incomingIsKg && existingIsKg) return existing;
+
+        const existingRating = existing.avgRating ?? -1;
+        const incomingRating = incoming.avgRating ?? -1;
+        if (incomingRating > existingRating) return incoming;
+
+        return existing;
+      }
+
+      function collapseSimilarSchools(schools) {
+        const map = new Map();
+
+        for (const school of schools || []) {
+          const key = canonicalSchoolKey(school);
+          if (!map.has(key)) {
+            map.set(key, school);
+          } else {
+            map.set(key, choosePreferredSchool(map.get(key), school));
+          }
+        }
+
+        return [...map.values()];
+      }
+
+      function schoolPrimaryName(school) {
+        return currentLang === 'zh'
+          ? school.chineseName || school.name
+          : school.name || school.chineseName;
+      }
+
+      function schoolSecondaryName(school) {
+        return currentLang === 'zh'
+          ? school.name || ''
+          : school.chineseName || '';
+      }
+
+      function applyLanguageUI() {
+        heroTitle.textContent = t('heroTitle');
+        heroSubtitle.textContent = t('heroSubtitle');
+        heroDisclaimer.textContent = t('disclaimer');
+        backBtn.textContent = t('backHome');
+        backToHomeBtn.textContent = t('backHome');
+        langToggle.textContent = currentLang === 'zh' ? 'EN' : '中文';
+        areaColSchool.textContent = t('school');
+        areaColCampus.textContent = t('campus');
+        areaColType.textContent = t('type');
+        areaColAvg.textContent = t('avg');
+        areaColReviews.textContent = t('reviews');
+         areaColGoogle.textContent = t('googleScore');
+        filterApply.textContent = t('applyFilters');
+        filterReset.textContent = t('resetFilters');
+        filterScore.placeholder = t('minAvgPlaceholder');
+        chatToggle.textContent = t('chatToggle');
+        chatTitle.textContent = t('chatTitle');
+        chatInput.placeholder = t('chatPlaceholder');
+        chatSend.textContent = t('chatSend');
+        googleLoginBtn.textContent = t('loginWithGoogle');
+        sendCodeBtn.textContent = t('sendVerifyCode');
+        verifyCodeBtn.textContent = t('verifyEmail');
+        verifyCodeInput.placeholder = t('verifyCodePlaceholder');
+        homeAdLabel.textContent = t('adLabel');
+        areaAdLabel.textContent = t('adLabel');
+        profileAdLabel.textContent = t('adLabel');
+        if (!isAdsConfigured()) {
+          homeAdBox.textContent = t('adHome');
+          areaAdBox.textContent = t('adArea');
+          profileAdBox.textContent = t('adProfile');
+        }
+        document.documentElement.lang = currentLang === 'zh' ? 'zh-Hant' : 'en';
+
+        metaSource.textContent = `${t('dataSource')}: ${t('sourceText')}`;
+        metaMethod.textContent = `${t('method')}: ${t('methodText')}`;
+
+        renderFilterOptions();
+        renderAuthStatus();
+        initializeChat();
+      }
+
+      function updateMetaStats() {
+        const total = allSchoolsCache?.length ?? 0;
+        const now = new Date();
+        metaTotal.textContent = `${t('totalSchools')}: ${total}`;
+        metaUpdated.textContent = `${t('updatedAt')}: ${now.toLocaleString(currentLang === 'zh' ? 'zh-HK' : 'en-US')}`;
+      }
+
+      function typeLabel(type) {
+        if (currentLang === 'zh') {
+          if (type === 'PUBLIC') return '本地';
+          if (type === 'PRIVATE') return '私立';
+          if (type === 'INTERNATIONAL') return '國際';
+        }
+        return type;
+      }
+
+      function renderFilterOptions() {
+        const prevArea = filterState.area;
+        const prevType = filterState.type;
+
+        const areaKeys = [...new Set(allSchoolsCache.map((s) => s.area?.name).filter(Boolean))].sort();
+
+        filterArea.innerHTML = [
+          `<option value="">${t('allAreas')}</option>`,
+          ...areaKeys.map((key) => `<option value="${key}">${formatArea(key)}</option>`),
+        ].join('');
+
+        filterType.innerHTML = [
+          `<option value="">${t('allTypes')}</option>`,
+          '<option value="PUBLIC">' + typeLabel('PUBLIC') + '</option>',
+          '<option value="PRIVATE">' + typeLabel('PRIVATE') + '</option>',
+          '<option value="INTERNATIONAL">' + typeLabel('INTERNATIONAL') + '</option>',
+        ].join('');
+
+        filterArea.value = prevArea;
+        filterType.value = prevType;
+        filterScore.value = filterState.minScore;
+      }
+
+      function applyFilters(schools, forcedArea) {
+        const areaKey = forcedArea || filterState.area;
+        const type = filterState.type;
+        const minScore = filterState.minScore === '' ? null : Number(filterState.minScore);
+
+        return (schools || []).filter((school) => {
+          if (areaKey && school.area?.name !== areaKey) return false;
+          if (type && school.type !== type) return false;
+          if (minScore !== null) {
+            if (school.avgRating === null || school.avgRating === undefined) return false;
+            if (Number(school.avgRating) < minScore) return false;
+          }
+          return true;
+        });
+      }
+
+      function groupTopByArea(schools, limit) {
+        const grouped = new Map();
+
+        for (const school of schools) {
+          const key = school.area?.name || 'other';
+          if (!grouped.has(key)) grouped.set(key, []);
+          grouped.get(key).push(school);
+        }
+
+        return [...grouped.entries()].map(([area, rows]) => {
+          const ranked = [...rows].sort((a, b) => {
+            const aWeighted = a.weightedScore ?? a.avgRating ?? -1;
+            const bWeighted = b.weightedScore ?? b.avgRating ?? -1;
+            if (bWeighted !== aWeighted) return bWeighted - aWeighted;
+            if ((b.reviewCount ?? 0) !== (a.reviewCount ?? 0)) return (b.reviewCount ?? 0) - (a.reviewCount ?? 0);
+            return String(a.name || '').localeCompare(String(b.name || ''));
+          });
+
+          return { area, schools: ranked.slice(0, limit) };
+        });
+      }
+
+        function googleScoreValue(school) {
+          const value = school.googleReviewScore ?? school.googleScore ?? null;
+          return value === null || value === undefined || value === '' ? '-' : value;
+        }
+
+      async function fetchJson(url) {
+        const response = await fetch(url, { credentials: 'include' });
+        if (!response.ok) throw new Error(`Request failed (${response.status})`);
+        return response.json();
+      }
+
+      function buildDuplicateCampusMap(groups) {
+        const allSchools = groups.flatMap((g) => g.schools || []);
+        const buckets = new Map();
+
+        for (const school of allSchools) {
+          const base = normalizeBaseName(school.chineseName || school.name);
+          if (!base) continue;
+          if (!buckets.has(base)) buckets.set(base, []);
+          buckets.get(base).push(school);
+        }
+
+        const campusById = new Map();
+        for (const list of buckets.values()) {
+          if (list.length < 2) continue;
+          for (const school of list) {
+            const campusFromName =
+              extractCampusFromName(school.chineseName || '') ||
+              extractCampusFromName(school.name || '');
+            campusById.set(school.id, campusFromName || school.district || t('na'));
+          }
+        }
+
+        return campusById;
+      }
+
+      function renderHome(groups) {
+        cachedGroups = groups;
+        homeView.classList.remove('hidden');
+        areaView.classList.add('hidden');
+        profileView.classList.add('hidden');
+        areaContainer.innerHTML = '';
+
+        const campusById = buildDuplicateCampusMap(groups);
+
+        for (const group of groups) {
+          const section = document.createElement('section');
+          section.className = 'area-section';
+
+          const visibleSchools = collapseSimilarSchools(group.schools || []);
+
+          const rows = visibleSchools
+            .map((school) => {
+              const campus = campusById.get(school.id) || '';
+              return `
+                <tr class="school-row" data-school-id="${school.id}">
+                  <td>
+                    <div><strong>${schoolPrimaryName(school)}</strong></div>
+                    <div class="subtext">${schoolSecondaryName(school)}</div>
+                  </td>
+                  <td>${campus || '-'}</td>
+                  <td>${school.type}</td>
+                   <td>${googleScoreValue(school)}</td>
+                  <td>${school.avgRating ?? t('na')}</td>
+                  <td>${school.reviewCount ?? 0}</td>
+                </tr>
+              `;
+            })
+            .join('');
+
+          section.innerHTML = `
+            <h3>
+              ${formatArea(group.area)}
+              <button data-area-key="${group.area}" style="margin-left:8px">${t('viewAll')}</button>
+            </h3>
+            ${rows
+              ? `
+              <table class="area-table">
+                <thead>
+                  <tr>
+                    <th>${t('school')}</th>
+                    <th>${t('campus')}</th>
+                    <th>${t('type')}</th>
+                    <th>${t('googleScore')}</th>
+                    <th>${t('avg')}</th>
+                    <th>${t('reviews')}</th>
+                  </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+              </table>
+              `
+              : `<p>${t('noSchools')}</p>`}
+          `;
+
+          areaContainer.appendChild(section);
+        }
+
+        statusEl.textContent = t('showingTop5');
+      }
+
+      function renderAreaDetail(areaKey, schools) {
+        cachedAreaKey = areaKey;
+        const rankedSchools = [...(schools || [])].sort((a, b) => {
+          const aWeighted = a.weightedScore ?? a.avgRating ?? -1;
+          const bWeighted = b.weightedScore ?? b.avgRating ?? -1;
+          if (bWeighted !== aWeighted) return bWeighted - aWeighted;
+          if ((b.reviewCount ?? 0) !== (a.reviewCount ?? 0)) return (b.reviewCount ?? 0) - (a.reviewCount ?? 0);
+          return String(a.name || '').localeCompare(String(b.name || ''));
+        });
+
+        cachedAreaSchools = rankedSchools;
+        homeView.classList.add('hidden');
+        areaView.classList.remove('hidden');
+        profileView.classList.add('hidden');
+
+        areaTitle.textContent = `${formatArea(areaKey)} (${rankedSchools.length})`;
+
+        const visibleSchools = collapseSimilarSchools(rankedSchools);
+        const groups = [{ area: areaKey, schools: visibleSchools }];
+        const campusById = buildDuplicateCampusMap(groups);
+
+        areaTitle.textContent = `${formatArea(areaKey)} (${visibleSchools.length})`;
+
+        areaTableBody.innerHTML = visibleSchools
+          .map((school) => {
+            const campus = campusById.get(school.id) || '';
+            return `
+              <tr class="school-row" data-school-id="${school.id}">
+                <td>
+                  <div><strong>${schoolPrimaryName(school)}</strong></div>
+                  <div class="subtext">${schoolSecondaryName(school)}</div>
+                </td>
+                <td>${campus || '-'}</td>
+                <td>${school.type}</td>
+                 <td>${googleScoreValue(school)}</td>
+                <td>${school.avgRating ?? t('na')}</td>
+                <td>${school.reviewCount ?? 0}</td>
+              </tr>
+            `;
+          })
+          .join('');
+
+        statusEl.textContent = t('showingAreaAll');
+      }
+
+      function renderProfile(school) {
+        cachedProfile = school;
+        homeView.classList.add('hidden');
+        areaView.classList.add('hidden');
+        profileView.classList.remove('hidden');
+
+        const reviewsCount = school.reviewCount ?? (school.reviews ? school.reviews.length : 0);
+
+        profileCard.innerHTML = `
+          <h2>${schoolPrimaryName(school)}</h2>
+          <p><strong>${t('chineseName')}:</strong> ${school.chineseName || t('na')}</p>
+          <p><strong>${t('englishName')}:</strong> ${school.name || t('na')}</p>
+          <p><strong>${t('district')}:</strong> ${school.district || t('na')}</p>
+          <p><strong>${t('area')}:</strong> ${formatArea(school.area?.name || school.area)}</p>
+          <p><strong>${t('address')}:</strong> ${school.address || t('na')}</p>
+          <p><strong>${t('type')}:</strong> ${school.type}</p>
+           <p><strong>${t('googleScore')}:</strong> ${googleScoreValue(school)}</p>
+          <p><strong>${t('googleAddress')}:</strong> ${school.googleFormattedAddress || t('na')}</p>
+          <p><strong>${t('avg')}:</strong> ${school.avgRating ?? t('na')}</p>
+          <p><strong>${t('reviews')}:</strong> ${reviewsCount}</p>
+          <p><em>${t('commentsHidden')}</em></p>
+          <div class="review-form">
+            <h3>${t('reviewTitle')}</h3>
+            <label>${t('reviewRating')}</label>
+            <select id="profileReviewRating">
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+            <label>${t('reviewComment')}</label>
+            <textarea id="profileReviewComment" rows="3" maxlength="500"></textarea>
+            <button id="profileReviewSubmit">${t('reviewSubmit')}</button>
+          </div>
+        `;
+
+        const submitBtn = document.getElementById('profileReviewSubmit');
+        if (submitBtn) {
+          submitBtn.addEventListener('click', async () => {
+            await submitProfileReview(school.id);
+          });
+        }
+
+        statusEl.textContent = `${t('viewingProfile')}${schoolPrimaryName(school)}`;
+      }
+
+      async function submitProfileReview(kindergartenId) {
+        if (!authUser) {
+          setVerifyMessage(t('reviewNeedLogin'));
+          return;
+        }
+
+        // skip email-verification gate when backend does not require it
+        if (captchaConfig?.requireEmailVerified !== false && !authUser.emailVerifiedAt) {
+          setVerifyMessage(t('reviewNeedVerify'));
+          return;
+        }
+
+        const token = getCaptchaTokenOrFail();
+        if (!token) return;
+
+        const ratingEl = document.getElementById('profileReviewRating');
+        const commentEl = document.getElementById('profileReviewComment');
+        const rating = Number(ratingEl?.value || 0);
+        const comment = String(commentEl?.value || '').trim();
+
+        const response = await fetch('/api/reviews', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ kindergartenId, rating, comment, captchaToken: token }),
+        });
+
+        const json = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          setVerifyMessage(json.error || t('failed'));
+          resetCaptchaWidget();
+          return;
+        }
+
+        setVerifyMessage(t('reviewSuccess'));
+        if (commentEl) commentEl.value = '';
+        resetCaptchaWidget();
+        await loadProfile(kindergartenId);
+      }
+
+      async function loadHome() {
+        statusEl.textContent = t('loadingSchools');
+        allSchoolsCache = await fetchJson('/api/kindergartens');
+        renderFilterOptions();
+        updateMetaStats();
+        const filtered = applyFilters(allSchoolsCache);
+        const groups = groupTopByArea(filtered, 5);
+        renderHome(groups);
+      }
+
+      async function loadProfile(id) {
+        statusEl.textContent = t('loadingProfile');
+        const school = await fetchJson(`/api/kindergartens/${id}`);
+        renderProfile(school);
+      }
+
+      async function loadArea(areaKey) {
+        statusEl.textContent = t('loadingSchools');
+        const schools = await fetchJson(`/api/kindergartens?area=${encodeURIComponent(areaKey)}`);
+        const filtered = applyFilters(schools, areaKey);
+        renderAreaDetail(areaKey, filtered);
+      }
+
+      function syncFilterStateFromInputs() {
+        filterState = {
+          area: filterArea.value,
+          type: filterType.value,
+          minScore: filterScore.value,
+        };
+      }
+
+      googleLoginBtn.addEventListener('click', () => {
+        window.location.href = '/api/auth/google';
+      });
+
+      sendCodeBtn.addEventListener('click', async () => {
+        try {
+          await sendEmailVerificationCode();
+        } catch (error) {
+          setVerifyMessage(error?.message || t('failed'));
+        }
+      });
+
+      verifyCodeBtn.addEventListener('click', async () => {
+        try {
+          await verifyEmailCode();
+        } catch (error) {
+          setVerifyMessage(error?.message || t('failed'));
+        }
+      });
+
+      chatToggle.addEventListener('click', () => {
+        chatPanel.classList.toggle('hidden');
+      });
+
+      chatSend.addEventListener('click', async () => {
+        const text = String(chatInput.value || '').trim();
+        if (!text) return;
+        appendChatMessage('user', text);
+        chatInput.value = '';
+        await handleChatIntent(text);
+      });
+
+      chatInput.addEventListener('keydown', async (event) => {
+        if (event.key !== 'Enter') return;
+        event.preventDefault();
+        const text = String(chatInput.value || '').trim();
+        if (!text) return;
+        appendChatMessage('user', text);
+        chatInput.value = '';
+        await handleChatIntent(text);
+      });
+
+      langToggle.addEventListener('click', () => {
+        currentLang = currentLang === 'zh' ? 'en' : 'zh';
+        applyLanguageUI();
+
+        if (!profileView.classList.contains('hidden') && cachedProfile) {
+          renderProfile(cachedProfile);
+        } else if (!areaView.classList.contains('hidden') && cachedAreaSchools.length) {
+          renderAreaDetail(cachedAreaKey, cachedAreaSchools);
+        } else if (cachedGroups.length) {
+          renderHome(cachedGroups);
+        }
+      });
+
+      filterApply.addEventListener('click', async () => {
+        syncFilterStateFromInputs();
+
+        const url = new URL(window.location.href);
+        const schoolId = url.searchParams.get('school');
+        const areaKey = url.searchParams.get('area');
+
+        if (schoolId) {
+          await loadProfile(schoolId);
+          return;
+        }
+
+        if (areaKey) {
+          await loadArea(areaKey);
+          return;
+        }
+
+        await loadHome();
+      });
+
+      filterReset.addEventListener('click', async () => {
+        filterState = { area: '', type: '', minScore: '' };
+        renderFilterOptions();
+
+        const url = new URL(window.location.href);
+        const schoolId = url.searchParams.get('school');
+        const areaKey = url.searchParams.get('area');
+
+        if (schoolId) {
+          await loadProfile(schoolId);
+          return;
+        }
+
+        if (areaKey) {
+          await loadArea(areaKey);
+          return;
+        }
+
+        await loadHome();
+      });
+
+      areaContainer.addEventListener('click', async (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+
+        const areaButton = target.closest('[data-area-key]');
+        if (areaButton) {
+          const areaKey = areaButton.getAttribute('data-area-key');
+          if (!areaKey) return;
+          history.pushState({ areaKey }, '', `/?area=${encodeURIComponent(areaKey)}`);
+          await loadArea(areaKey);
+          return;
+        }
+
+        const row = target.closest('[data-school-id]');
+        if (!row) return;
+
+        const schoolId = row.getAttribute('data-school-id');
+        if (!schoolId) return;
+
+        history.pushState({ schoolId }, '', `/?school=${encodeURIComponent(schoolId)}`);
+        await loadProfile(schoolId);
+      });
+
+      backBtn.addEventListener('click', async () => {
+        const url = new URL(window.location.href);
+        const areaKey = url.searchParams.get('area');
+        if (areaKey) {
+          history.pushState({ areaKey }, '', `/?area=${encodeURIComponent(areaKey)}`);
+          await loadArea(areaKey);
+          return;
+        }
+
+        history.pushState({}, '', '/');
+        await loadHome();
+      });
+
+      backToHomeBtn.addEventListener('click', async () => {
+        history.pushState({}, '', '/');
+        await loadHome();
+      });
+
+      areaTableBody.addEventListener('click', async (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+
+        const row = target.closest('[data-school-id]');
+        if (!row) return;
+
+        const schoolId = row.getAttribute('data-school-id');
+        if (!schoolId) return;
+
+        const areaKey = cachedAreaKey ? `&area=${encodeURIComponent(cachedAreaKey)}` : '';
+        history.pushState({ schoolId }, '', `/?school=${encodeURIComponent(schoolId)}${areaKey}`);
+        await loadProfile(schoolId);
+      });
+
+      window.addEventListener('popstate', async () => {
+        const url = new URL(window.location.href);
+        const schoolId = url.searchParams.get('school');
+        const areaKey = url.searchParams.get('area');
+        if (schoolId) {
+          await loadProfile(schoolId);
+        } else if (areaKey) {
+          await loadArea(areaKey);
+        } else {
+          await loadHome();
+        }
+      });
+
+      (async () => {
+        try {
+          applyLanguageUI();
+          await loadAuthMe();
+          await loadCaptchaConfig();
+          try {
+            await loadCaptchaScript();
+            renderCaptchaWidget();
+          } catch {
+            setVerifyMessage(t('captchaNotConfigured'));
+          }
+          setupAds();
+          const url = new URL(window.location.href);
+          const schoolId = url.searchParams.get('school');
+          const areaKey = url.searchParams.get('area');
+          if (schoolId) await loadProfile(schoolId);
+          else if (areaKey) await loadArea(areaKey);
+          else await loadHome();
+        } catch (error) {
+          statusEl.textContent = error.message || t('failed');
+        }
+      })();
+    </script>
+  </body>
+</html>

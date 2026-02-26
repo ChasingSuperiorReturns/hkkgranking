@@ -1,0 +1,43 @@
+databases:
+  - name: hkkgranking-db
+    plan: free
+    databaseName: hkkgranking
+    user: hkkgranking
+
+services:
+  - type: web
+    plan: free
+    name: hkkgranking
+    runtime: node
+    buildCommand: node render-build.js
+    startCommand: node dist/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hkkgranking-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: EMAIL_OTP_SECRET
+        generateValue: true
+      - key: CAPTCHA_PROVIDER
+        value: recaptcha
+      - key: CAPTCHA_SITE_KEY
+        sync: false
+      - key: CAPTCHA_SECRET_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: REQUIRE_EMAIL_VERIFIED
+        value: "false"
+      - key: REVIEW_RATE_LIMIT_WINDOW_MS
+        value: "900000"
+      - key: REVIEW_RATE_LIMIT_MAX
+        value: "5"

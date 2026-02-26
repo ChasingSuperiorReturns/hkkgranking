@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  googleId  String?  @unique
+  email     String   @unique
+  emailVerifiedAt DateTime?
+  name      String?
+  image     String?
+  createdAt DateTime @default(now())
+  reviews   Review[]
+  emailVerificationCodes EmailVerificationCode[]
+}
+
+model Kindergarten {
+  id           String   @id @default(uuid())
+  externalId   String?  @unique
+  name         String
+  chineseName  String?
+  district     String?
+  address      String
+  googlePlaceId String?
+  googleReviewScore Float?
+  googleReviewCount Int?
+  googleFormattedAddress String?
+  googleUpdatedAt DateTime?
+  areaId       String
+  area         Area     @relation(fields: [areaId], references: [id])
+  type         KindType
+  reviews      Review[]
+
+}
+
+model Review {
+  id             String       @id @default(uuid())
+  rating         Int
+  comment        String?
+  userId         String
+  kindergartenId String
+  user           User         @relation(fields: [userId], references: [id])
+  kindergarten   Kindergarten @relation(fields: [kindergartenId], references: [id])
+  createdAt      DateTime     @default(now())
+
+  @@unique([userId, kindergartenId])
+}
+
+model Area {
+  id            String         @id @default(uuid())
+  name          String         @unique
+  kindergartens Kindergarten[]
+}
+
+model EmailVerificationCode {
+  id         String   @id @default(uuid())
+  userId     String
+  codeHash   String
+  expiresAt  DateTime
+  consumedAt DateTime?
+  attempts   Int      @default(0)
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+}
+
+enum KindType {
+  PUBLIC
+  PRIVATE
+  INTERNATIONAL
+}
