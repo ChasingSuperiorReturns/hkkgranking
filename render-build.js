@@ -27,8 +27,7 @@ if (dbUrl.startsWith('postgres')) {
   }
 }
 
-// Step 2: Install, generate, build
-run('npm ci');
+// Step 2: Generate & build
 run('npx prisma generate');
 run('npx tsc');
 

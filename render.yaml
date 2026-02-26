@@ -41,3 +41,7 @@ services:
         value: "900000"
       - key: REVIEW_RATE_LIMIT_MAX
         value: "5"
+      - key: BASE_URL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
