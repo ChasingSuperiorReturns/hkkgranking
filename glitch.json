@@ -1,0 +1,10 @@
+{
+  "install": "npm install && npx prisma generate",
+  "build": "npx tsc",
+  "start": "node dist/index.js",
+  "watch": {
+    "restart": {
+      "include": ["dist/"]
+    }
+  }
+}
