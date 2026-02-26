@@ -4,3 +4,4 @@ dist
 .env
 .env.local
 tmp_*
+# Keep prisma/dev.db for initial data

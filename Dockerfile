@@ -25,7 +25,10 @@ RUN npm prune --omit=dev
 COPY public ./public
 COPY prisma/dev.db ./prisma/dev.db
 
+# Create startup script that copies DB to writable /tmp
+RUN echo '#!/bin/sh\ncp -n /app/prisma/dev.db /tmp/dev.db 2>/dev/null || true\nexec node dist/index.js' > /app/start.sh && chmod +x /app/start.sh
+
 # Expose port
 EXPOSE 8080
 
-CMD ["node", "dist/index.js"]
+CMD ["/app/start.sh"]
