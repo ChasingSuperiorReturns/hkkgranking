@@ -38,9 +38,11 @@ export async function sendEmailVerificationCode(email: string, code: string): Pr
   await transport.sendMail({
     from,
     to: email,
-    subject: 'Your verification code',
-    text: `Your verification code is ${code}. This code expires in 10 minutes.`,
-    html: `<p>Your verification code is <strong>${code}</strong>.</p><p>This code expires in 10 minutes.</p>`,
+    subject: '驗證碼 Your verification code',
+    text: `你的驗證碼是 ${code}，10 分鐘內有效。\nYour verification code is ${code}. This code expires in 10 minutes.`,
+    html:
+      `<p>你的驗證碼是 <strong>${code}</strong>，10 分鐘內有效。</p>` +
+      `<p>Your verification code is <strong>${code}</strong>. This code expires in 10 minutes.</p>`,
   });
 
   return { delivered: true };

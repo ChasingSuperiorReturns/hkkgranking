@@ -1,56 +1,35 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import { router as authRouter } from './routes/auth';
-import { router as kindergartenRouter } from './routes/kindergarten';
-import { router as reviewRouter } from './routes/review';
+// Must run before any module reads process.env (the auth routes read OAuth settings on import).
+import 'dotenv/config';
+import { createApp } from './app';
+import { getJwtSecret } from './config';
 import { prisma } from './models/prismaClient';
+import { invalidateSchoolSnapshot } from './services/schools';
 
-dotenv.config();
+// Fail fast (rather than on the first login) when production is missing its signing secret.
+getJwtSecret();
 
-const app = express();
-const publicDir = path.resolve(__dirname, '../public');
-
-// Middleware
-app.use(cors({ origin: true, credentials: true }));
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(express.static(publicDir));
-
-// Routes
-app.get('/', (_req, res) => {
-  res.sendFile(path.join(publicDir, 'index.html'));
-});
-
-app.get('/health', (_req, res) => {
-  res.status(200).json({ ok: true });
-});
-
-app.use('/api/auth', authRouter);
-app.use('/api/kindergartens', kindergartenRouter);
-app.use('/api/reviews', reviewRouter);
-
+const app = createApp();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 
 // Auto-seed if database is empty (first deploy)
 async function autoSeed() {
   try {
     const count = await prisma.kindergarten.count();
-    if (count === 0) {
-      console.log('Database empty — running auto-seed...');
-      await import('./scripts/importGovKgp');
-    } else {
+    if (count > 0) {
       console.log(`Database has ${count} kindergartens — skipping seed.`);
+      return;
     }
+
+    console.log('Database empty — running auto-seed...');
+    const { runGovImport } = await import('./scripts/importGovKgp');
+    await runGovImport();
+    invalidateSchoolSnapshot();
   } catch (err) {
-    console.error('Auto-seed check failed:', err);
+    console.error('Auto-seed failed:', err);
   }
 }
 
 app.listen(PORT, () => {
   console.log(`🚀 Express server listening on port ${PORT}`);
-  autoSeed();
+  void autoSeed();
 });

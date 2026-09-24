@@ -1,10 +1,10 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import * as cheerio from 'cheerio';
 import { prisma } from '../models/prismaClient';
 
-dotenv.config();
-
 const BASE = 'https://kgp2025.azurewebsites.net/edb';
+
+type SchoolType = 'PUBLIC' | 'PRIVATE' | 'INTERNATIONAL';
 
 type Row = {
   externalId: string;
@@ -13,7 +13,7 @@ type Row = {
   districtSlug: string;
   districtName: string;
   area: string;
-  type: 'PUBLIC' | 'PRIVATE' | 'INTERNATIONAL';
+  type: SchoolType;
   address: string;
 };
 
@@ -44,11 +44,15 @@ type SchoolCell = {
   schemeParticipating: boolean;
 };
 
+export type ImportOptions = {
+  fetchHtml?: (url: string) => Promise<string>;
+};
+
 function normalizeName(value: string): string {
   return value.replace(/\s+/g, ' ').trim();
 }
 
-function classifyType(name: string, schemeParticipating: boolean): 'PUBLIC' | 'PRIVATE' | 'INTERNATIONAL' {
+export function classifyType(name: string, schemeParticipating: boolean): SchoolType {
   const upper = name.toUpperCase();
   if (upper.includes('INTERNATIONAL') || upper.includes('國際')) {
     return 'INTERNATIONAL';
@@ -56,19 +60,12 @@ function classifyType(name: string, schemeParticipating: boolean): 'PUBLIC' | 'P
   return schemeParticipating ? 'PUBLIC' : 'PRIVATE';
 }
 
-function normalizeForWikiCheck(name: string): string {
-  return name
-    .replace(/\s+/g, '')
-    .replace(/[()（）\-–—]/g, '')
-    .replace(/[0-9０-９]/g, '')
-    .trim();
-}
-
 async function fetchHtml(url: string): Promise<string> {
   const response = await fetch(url, {
     headers: {
       'User-Agent': 'Mozilla/5.0 (compatible; HKKindergartenImporter/1.0)',
     },
+    signal: AbortSignal.timeout(30000),
   });
 
   if (!response.ok) {
@@ -78,12 +75,12 @@ async function fetchHtml(url: string): Promise<string> {
   return response.text();
 }
 
-function extractDistrictSlugs(indexHtml: string): string[] {
+export function extractDistrictSlugs(indexHtml: string): string[] {
   const matches = Array.from(indexHtml.matchAll(/school\.php\?district=([a-z]+)/g));
   return [...new Set(matches.map((m) => m[1]))];
 }
 
-function extractSchoolCells(html: string): SchoolCell[] {
+export function extractSchoolCells(html: string): SchoolCell[] {
   const $ = cheerio.load(html);
   const deduped = new Map<string, SchoolCell>();
 
@@ -104,6 +101,7 @@ function extractSchoolCells(html: string): SchoolCell[] {
       return;
     }
 
+    // The first column lists kindergartens joining the Kindergarten Education Scheme.
     const columnIndex = $(td).index();
     const schemeParticipating = columnIndex === 0;
 
@@ -117,10 +115,10 @@ function extractSchoolCells(html: string): SchoolCell[] {
   return [...deduped.values()];
 }
 
-async function scrapeDistrict(districtSlug: string): Promise<Row[]> {
+async function scrapeDistrict(districtSlug: string, getHtml: (url: string) => Promise<string>): Promise<Row[]> {
   const enUrl = `${BASE}/school.php?district=${districtSlug}&lang=en`;
   const tcUrl = `${BASE}/school.php?district=${districtSlug}&lang=tc`;
-  const [enHtml, tcHtml] = await Promise.all([fetchHtml(enUrl), fetchHtml(tcUrl)]);
+  const [enHtml, tcHtml] = await Promise.all([getHtml(enUrl), getHtml(tcUrl)]);
 
   const englishCells = extractSchoolCells(enHtml);
   const chineseCells = extractSchoolCells(tcHtml);
@@ -141,9 +139,9 @@ async function scrapeDistrict(districtSlug: string): Promise<Row[]> {
   }));
 }
 
-async function fetchWikipediaKindergartenText(): Promise<string> {
+async function fetchWikipediaKindergartenText(getHtml: (url: string) => Promise<string>): Promise<string> {
   try {
-    const html = await fetchHtml('https://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E5%B9%BC%E7%A8%9A%E5%9C%92%E5%88%97%E8%A1%A8');
+    const html = await getHtml('https://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E5%B9%BC%E7%A8%9A%E5%9C%92%E5%88%97%E8%A1%A8');
     const $ = cheerio.load(html);
     return normalizeName($('#mw-content-text').text());
   } catch {
@@ -151,8 +149,14 @@ async function fetchWikipediaKindergartenText(): Promise<string> {
   }
 }
 
-async function run() {
-  const indexHtml = await fetchHtml(`${BASE}/?lang=en`);
+/**
+ * Adds new kindergartens and refreshes names/types of existing ones, matched by EDB school id.
+ * Never deletes anything: school ids, parent reviews and synced Google ratings are all kept, so it
+ * is safe to re-run whenever the EDB list changes.
+ */
+export async function runGovImport(options: ImportOptions = {}) {
+  const getHtml = options.fetchHtml ?? fetchHtml;
+  const indexHtml = await getHtml(`${BASE}/?lang=en`);
   const districtSlugs = extractDistrictSlugs(indexHtml);
 
   if (!districtSlugs.length) {
@@ -162,7 +166,7 @@ async function run() {
   const collected: Row[] = [];
   for (const districtSlug of districtSlugs) {
     try {
-      const rows = await scrapeDistrict(districtSlug);
+      const rows = await scrapeDistrict(districtSlug, getHtml);
       collected.push(...rows);
       console.log(`Scraped ${rows.length} entries from ${districtSlug}`);
     } catch (error) {
@@ -170,70 +174,81 @@ async function run() {
     }
   }
 
-  const dedupedByName = new Map<string, Row>();
+  const rowsById = new Map<string, Row>();
   for (const row of collected) {
-    const key = row.externalId;
-    if (!dedupedByName.has(key)) {
-      dedupedByName.set(key, row);
+    if (!rowsById.has(row.externalId)) {
+      rowsById.set(row.externalId, row);
     }
   }
+  const rows = [...rowsById.values()];
 
-  const rows = [...dedupedByName.values()];
-
-  await prisma.review.deleteMany({});
-  await prisma.kindergarten.deleteMany({});
-  await prisma.area.deleteMany({});
-
-  const wikiText = await fetchWikipediaKindergartenText();
+  const wikiText = await fetchWikipediaKindergartenText(getHtml);
   let wikiMatched = 0;
+  let created = 0;
+  const areaIds = new Map<string, string>();
 
   for (const row of rows) {
-    const area = await prisma.area.upsert({
-      where: { name: row.area },
-      update: {},
-      create: { name: row.area },
+    let areaId = areaIds.get(row.area);
+    if (!areaId) {
+      const area = await prisma.area.upsert({
+        where: { name: row.area },
+        update: {},
+        create: { name: row.area },
+      });
+      areaId = area.id;
+      areaIds.set(row.area, areaId);
+    }
+
+    const fields = {
+      areaId,
+      district: row.districtName,
+      type: row.type,
+      name: row.name,
+      chineseName: row.chineseName,
+      address: row.address,
+    };
+    const existing = await prisma.kindergarten.findUnique({
+      where: { externalId: row.externalId },
+      select: { id: true },
     });
 
-    await prisma.kindergarten.upsert({
-      where: {
-        externalId: row.externalId,
-      },
-      update: {
-        externalId: row.externalId,
-        areaId: area.id,
-        district: row.districtName,
-        type: row.type as any,
-        name: row.name,
-        chineseName: row.chineseName,
-        address: row.address,
-      },
-      create: {
-        externalId: row.externalId,
-        name: row.name,
-        chineseName: row.chineseName,
-        district: row.districtName,
-        address: row.address,
-        areaId: area.id,
-        type: row.type as any,
-      },
-    });
+    if (existing) {
+      await prisma.kindergarten.update({ where: { id: existing.id }, data: fields });
+    } else {
+      await prisma.kindergarten.create({ data: { externalId: row.externalId, ...fields } });
+      created += 1;
+    }
 
     if (row.chineseName && wikiText && wikiText.includes(row.chineseName)) {
       wikiMatched += 1;
     }
   }
 
-  console.log(`Imported/updated ${rows.length} kindergarten rows from ${BASE}`);
+  const importedIds = new Set(rows.map((row) => row.externalId));
+  const stored = await prisma.kindergarten.findMany({
+    where: { externalId: { startsWith: 'kgp-' } },
+    select: { externalId: true },
+  });
+  const notInSource = stored.filter((school) => !importedIds.has(school.externalId!)).length;
+
+  console.log(`Imported ${rows.length} kindergarten rows from ${BASE} (${created} new, ${rows.length - created} updated)`);
+  if (notInSource) {
+    console.log(`${notInSource} kindergartens in the database were not in this import (closed or skipped?). They were left unchanged.`);
+  }
   if (wikiText) {
     console.log(`Wikipedia Chinese-name reference matches: ${wikiMatched}/${rows.length}`);
   }
+
+  return { imported: rows.length, created, notInSource };
 }
 
-run()
-  .catch((error) => {
-    console.error('Government import failed:', error);
-    process.exitCode = 1;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+if (require.main === module) {
+  runGovImport()
+    .catch((error) => {
+      console.error('Government import failed:', error);
+      process.exitCode = 1;
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}
