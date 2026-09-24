@@ -2,9 +2,9 @@
  * Check if database has data; if empty, run the EDB import.
  * Used by Render build to auto-seed on first deploy.
  */
+import 'dotenv/config';
 import { prisma } from '../models/prismaClient';
-import dotenv from 'dotenv';
-dotenv.config();
+import { runGovImport } from './importGovKgp';
 
 async function checkAndSeed() {
   const count = await prisma.kindergarten.count();
@@ -16,9 +16,7 @@ async function checkAndSeed() {
   }
 
   console.log('  Database is empty — running EDB import...');
-
-  // Dynamically import the import script to run it
-  await import('./importGovKgp');
+  await runGovImport();
 }
 
 checkAndSeed()

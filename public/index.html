@@ -1,29 +1,46 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-HK">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>香港幼稚園排名</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <meta
+      name="description"
+      content="香港 18 區幼稚園排名：綜合家長評分及 Google 評分，列出每區最受好評的幼稚園。Hong Kong kindergarten rankings by district, combining parent ratings and Google ratings."
+    />
+    <meta name="theme-color" content="#1d4ed8" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%88%3C/text%3E%3C/svg%3E"
+    />
+    <!-- AdSense: setupAds() loads the ad script once adConfig (below) has real IDs.
+         For AdSense site verification, also add: <meta name="google-adsense-account" content="ca-pub-..."> -->
     <style>
       :root {
         --bg: #f3f6fb;
         --panel: #ffffff;
+        --panel-soft: #f8fafc;
         --blue: #1d4ed8;
         --blue-dark: #1e3a8a;
         --text: #0f172a;
         --muted: #475569;
         --line: #dbe3ef;
+        --star: #f59e0b;
+        --ok: #047857;
+        --error: #b91c1c;
       }
 
       * { box-sizing: border-box; }
 
       body {
         margin: 0;
-        font-family: sans-serif;
+        font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang HK', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+        line-height: 1.5;
         color: var(--text);
         background: var(--bg);
       }
+
+      a { color: var(--blue); }
 
       .wrap {
         max-width: 1150px;
@@ -42,13 +59,19 @@
       .hero-top {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         gap: 12px;
       }
 
       .hero h1 {
         margin: 0;
         font-size: 28px;
+        line-height: 1.25;
+      }
+
+      .hero h1 a {
+        color: inherit;
+        text-decoration: none;
       }
 
       .hero p {
@@ -58,12 +81,22 @@
 
       .meta-panel {
         margin-top: 12px;
-        padding: 12px;
         border: 1px solid var(--line);
         border-radius: 10px;
-        background: #f8fafc;
+        background: var(--panel-soft);
+      }
+
+      .meta-panel summary {
+        cursor: pointer;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .meta-body {
         display: grid;
         gap: 6px;
+        padding: 0 12px 12px;
       }
 
       .meta-row {
@@ -80,20 +113,51 @@
       }
 
       .filters select,
-      .filters input {
+      .filters input,
+      .account-row input,
+      .review-form textarea {
         padding: 8px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        font-family: inherit;
+        font: inherit;
         background: #fff;
+        color: var(--text);
       }
 
-      .account-panel {
+      .filters input[type='search'] {
+        flex: 1 1 280px;
+        min-width: 0;
+      }
+
+      .filters input[type='number'] {
+        width: 120px;
+      }
+
+      .account-panel,
+      .verify-panel {
         margin-top: 12px;
         padding: 12px;
         border: 1px solid var(--line);
         border-radius: 10px;
-        background: #f8fafc;
+        background: var(--panel-soft);
+      }
+
+      .account-panel {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .account-text {
+        font-size: 14px;
+        color: var(--muted);
+        overflow-wrap: anywhere;
+      }
+
+      .verify-panel p {
+        margin: 0;
       }
 
       .account-row {
@@ -105,48 +169,41 @@
       }
 
       .account-row input {
-        padding: 8px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        font-family: inherit;
-        background: #fff;
+        width: 140px;
       }
 
-      .review-form {
-        margin-top: 14px;
-        padding-top: 12px;
-        border-top: 1px solid var(--line);
-        display: grid;
-        gap: 8px;
-      }
-
-      .review-form select,
-      .review-form textarea {
-        padding: 8px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        font-family: inherit;
-        background: #fff;
-      }
-
-      .verify-message {
-        margin-top: 8px;
-        font-size: 13px;
-        color: var(--muted);
-      }
-
-      button {
+      button,
+      .button {
+        display: inline-block;
         border-radius: 10px;
         border: none;
         background: var(--blue);
         color: #fff;
         padding: 8px 12px;
         cursor: pointer;
+        font: inherit;
         font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
       }
 
-      button:hover {
+      button:hover,
+      .button:hover {
         background: var(--blue-dark);
+      }
+
+      button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .btn-secondary {
+        background: #e2e8f0;
+        color: var(--text);
+      }
+
+      .btn-secondary:hover {
+        background: #cbd5e1;
       }
 
       .status {
@@ -158,11 +215,25 @@
         color: var(--muted);
       }
 
+      .status.error,
+      .form-message.error {
+        color: var(--error);
+      }
+
+      .form-message.ok {
+        color: var(--ok);
+      }
+
+      .form-message {
+        font-size: 14px;
+        min-height: 1.2em;
+      }
+
       .ad-slot {
         margin: 12px 0;
         border: 1px dashed #94a3b8;
         border-radius: 10px;
-        background: #f8fafc;
+        background: var(--panel-soft);
         padding: 10px;
       }
 
@@ -174,18 +245,6 @@
         letter-spacing: 0.04em;
       }
 
-      .ad-box {
-        min-height: 90px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #334155;
-        font-size: 14px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: #ffffff;
-      }
-
       .area-section {
         background: var(--panel);
         border-radius: 12px;
@@ -195,8 +254,21 @@
         box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
       }
 
-      .area-section h3 {
-        margin: 0 0 10px;
+      .area-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .area-head h2,
+      .area-head h3 {
+        margin: 0;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
       }
 
       .area-table {
@@ -215,6 +287,20 @@
       .area-table th {
         background: #eef2f7;
         font-weight: 700;
+        font-size: 14px;
+      }
+
+      .col-rank {
+        width: 52px;
+        text-align: center !important;
+        color: var(--muted);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .col-num {
+        width: 120px;
+        white-space: nowrap;
       }
 
       .school-row {
@@ -225,9 +311,53 @@
         background: #f1f5ff;
       }
 
-      .subtext {
+      .school-link {
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .school-link:hover,
+      .school-link:focus-visible {
+        color: var(--blue);
+        text-decoration: underline;
+      }
+
+      .subtext,
+      .count {
         color: var(--muted);
         font-size: 13px;
+      }
+
+      .score {
+        font-weight: 700;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 4px;
+      }
+
+      .tag {
+        font-size: 12px;
+        padding: 1px 8px;
+        border-radius: 999px;
+        background: #e2e8f0;
+        color: #334155;
+      }
+
+      .tag-PUBLIC { background: #dcfce7; color: #166534; }
+      .tag-PRIVATE { background: #fef3c7; color: #92400e; }
+      .tag-INTERNATIONAL { background: #e0e7ff; color: #3730a3; }
+
+      .mobile-stats {
+        display: none;
+      }
+
+      .empty {
+        color: var(--muted);
       }
 
       .profile {
@@ -237,12 +367,126 @@
         padding: 16px;
       }
 
+      .profile h2 {
+        margin: 0;
+      }
+
+      .score-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 10px;
+        margin: 16px 0;
+      }
+
+      .score-card {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 12px;
+        background: var(--panel-soft);
+      }
+
+      .score-card .label,
+      .score-card .hint {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .score-card .value {
+        font-size: 26px;
+        font-weight: 700;
+      }
+
+      .details {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 6px 16px;
+        margin: 0;
+      }
+
+      .details dt {
+        color: var(--muted);
+      }
+
+      .details dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .review-form {
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 8px;
+        max-width: 560px;
+      }
+
+      .review-form h3,
+      .review-form p {
+        margin: 0;
+      }
+
+      .star-fieldset {
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .star-fieldset legend {
+        padding: 0;
+        margin-bottom: 2px;
+      }
+
+      .star-input {
+        display: inline-flex;
+        flex-direction: row-reverse;
+        gap: 2px;
+      }
+
+      .star-input input {
+        position: absolute;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+      }
+
+      .star-input label {
+        font-size: 34px;
+        line-height: 1;
+        color: #cbd5e1;
+        cursor: pointer;
+        padding: 0 2px;
+      }
+
+      .star-input input:checked ~ label,
+      .star-input label:hover,
+      .star-input label:hover ~ label {
+        color: var(--star);
+      }
+
+      .star-input input:focus-visible + label {
+        outline: 2px solid var(--blue);
+        border-radius: 4px;
+      }
+
       .toolbar {
         margin-bottom: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
       }
 
       .hidden {
-        display: none;
+        display: none !important;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
       }
 
       .chat-toggle {
@@ -250,6 +494,7 @@
         right: 18px;
         bottom: 18px;
         z-index: 80;
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
       }
 
       .chat-panel {
@@ -259,6 +504,7 @@
         width: 340px;
         max-width: calc(100vw - 24px);
         height: 440px;
+        max-height: calc(100vh - 100px);
         background: var(--panel);
         border: 1px solid var(--line);
         border-radius: 12px;
@@ -272,6 +518,13 @@
         padding: 10px 12px;
         border-bottom: 1px solid var(--line);
         font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chat-head button {
+        padding: 2px 10px;
       }
 
       .chat-messages {
@@ -311,7 +564,7 @@
 
       .chat-quick button {
         background: #e2e8f0;
-        color: #0f172a;
+        color: var(--text);
         padding: 6px 8px;
         font-size: 12px;
       }
@@ -325,1351 +578,1510 @@
 
       .chat-input input {
         flex: 1;
+        min-width: 0;
         padding: 8px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        font-family: inherit;
+        font: inherit;
+      }
+
+      @media (max-width: 640px) {
+        .wrap { padding: 12px; }
+        .hero { padding: 16px; }
+        .hero h1 { font-size: 22px; }
+        .filters select,
+        .filters input[type='number'] { flex: 1 1 40%; width: auto; }
+        .area-table th,
+        .area-table td { padding: 8px 6px; }
+        .col-rank { width: auto; }
+        .col-num { width: auto; }
+        .col-hide-mobile { display: none; }
+        .mobile-stats { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+        .score-cards { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .score-card { padding: 8px; }
+        .score-card .value { font-size: 20px; }
+        .score-card .label,
+        .score-card .hint { font-size: 11px; }
+        .details { grid-template-columns: 1fr; gap: 0; }
+        .details dd { margin-bottom: 8px; }
+        .chat-panel { right: 12px; left: 12px; width: auto; bottom: 66px; height: 65vh; }
+        .chat-toggle { right: 12px; bottom: 12px; }
       }
     </style>
   </head>
   <body>
     <main class="wrap">
-      <section class="hero">
+      <header class="hero">
         <div class="hero-top">
-          <h1 id="heroTitle">香港幼稚園排名</h1>
-          <button id="langToggle">EN</button>
+          <h1><a id="heroTitle" href="/" data-nav>香港幼稚園排名</a></h1>
+          <button id="langToggle" type="button" class="btn-secondary" lang="en">EN</button>
         </div>
-        <p id="heroSubtitle">按地區顯示每區排名前 5 的幼稚園</p>
-        <p id="heroDisclaimer" class="subtext"></p>
-        <div class="meta-panel">
-          <div class="meta-row" id="metaSource"></div>
-          <div class="meta-row" id="metaTotal"></div>
-          <div class="meta-row" id="metaUpdated"></div>
-          <div class="meta-row" id="metaMethod"></div>
-        </div>
-        <div class="filters">
-          <select id="filterArea"></select>
-          <select id="filterType"></select>
-          <input id="filterScore" type="number" min="0" max="5" step="0.1" placeholder="最低平均分" />
-          <button id="filterApply">套用篩選</button>
-          <button id="filterReset">重設</button>
-        </div>
-        <div class="account-panel">
-          <div class="meta-row" id="authStatusText"></div>
-          <div class="account-row">
-            <button id="googleLoginBtn">Google 登入</button>
-            <button id="sendCodeBtn">發送驗證碼</button>
-            <input id="verifyCodeInput" type="text" maxlength="6" placeholder="6位驗證碼" />
-            <button id="verifyCodeBtn">驗證電郵</button>
+        <p id="heroSubtitle" data-i18n="heroSubtitle"></p>
+        <p class="subtext" data-i18n="disclaimer"></p>
+
+        <details class="meta-panel">
+          <summary id="metaSummary"></summary>
+          <div class="meta-body">
+            <div class="meta-row" id="metaSource"></div>
+            <div class="meta-row" id="metaTotal"></div>
+            <div class="meta-row" id="metaUpdated"></div>
+            <div class="meta-row" id="metaMethod"></div>
+            <div class="meta-row" id="metaTypes"></div>
           </div>
-          <div id="captchaContainer" class="account-row"></div>
-          <div id="verifyMessage" class="verify-message"></div>
+        </details>
+
+        <div class="filters">
+          <label for="searchInput" class="visually-hidden" data-i18n="searchLabel"></label>
+          <input id="searchInput" type="search" autocomplete="off" data-i18n-placeholder="searchPlaceholder" />
+          <label for="filterArea" class="visually-hidden" data-i18n="district"></label>
+          <select id="filterArea"></select>
+          <label for="filterType" class="visually-hidden" data-i18n="type"></label>
+          <select id="filterType"></select>
+          <label for="filterScore" class="visually-hidden" data-i18n="minScorePlaceholder"></label>
+          <input id="filterScore" type="number" min="0" max="5" step="0.1" inputmode="decimal" data-i18n-placeholder="minScorePlaceholder" />
+          <button id="filterReset" type="button" class="btn-secondary" data-i18n="resetFilters"></button>
         </div>
-      </section>
 
-      <div id="status" class="status">正在載入學校資料...</div>
+        <div id="accountPanel" class="account-panel hidden">
+          <span id="authStatusText" class="account-text"></span>
+          <span>
+            <button id="googleLoginBtn" type="button" class="hidden" data-i18n="loginWithGoogle"></button>
+            <button id="logoutBtn" type="button" class="btn-secondary hidden" data-i18n="logout"></button>
+          </span>
+        </div>
 
-      <section id="homeView">
-        <div class="ad-slot" id="homeAdSlot">
-          <div class="ad-label" id="homeAdLabel">廣告</div>
-          <div class="ad-box" id="homeAdBox"></div>
+        <div id="verifyPanel" class="verify-panel hidden">
+          <p data-i18n="verifyIntro"></p>
+          <div class="account-row">
+            <button id="sendCodeBtn" type="button" data-i18n="sendVerifyCode"></button>
+            <label for="verifyCodeInput" class="visually-hidden" data-i18n="verifyCodePlaceholder"></label>
+            <input id="verifyCodeInput" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" data-i18n-placeholder="verifyCodePlaceholder" />
+            <button id="verifyCodeBtn" type="button" data-i18n="verifyEmail"></button>
+          </div>
+          <div id="verifyCaptcha" class="account-row"></div>
+          <div id="verifyMessage" class="form-message" role="status" aria-live="polite"></div>
+        </div>
+      </header>
+
+      <div id="status" class="status" role="status" aria-live="polite">正在載入學校資料...</div>
+
+      <section id="homeView" class="hidden">
+        <div class="ad-slot hidden" data-ad-view="home">
+          <div class="ad-label" data-i18n="adLabel"></div>
+          <div class="ad-box"></div>
         </div>
         <div id="areaContainer"></div>
       </section>
 
       <section id="areaView" class="hidden">
         <div class="toolbar">
-          <button id="backToHomeBtn">← 返回首頁</button>
+          <a class="button btn-secondary" href="/" data-nav data-i18n="backHome"></a>
         </div>
         <article class="area-section">
-          <h3 id="areaTitle"></h3>
-          <div class="ad-slot" id="areaAdSlot">
-            <div class="ad-label" id="areaAdLabel">廣告</div>
-            <div class="ad-box" id="areaAdBox"></div>
+          <div class="area-head"><h2 id="areaTitle"></h2></div>
+          <div class="ad-slot hidden" data-ad-view="area">
+            <div class="ad-label" data-i18n="adLabel"></div>
+            <div class="ad-box"></div>
           </div>
-          <table class="area-table">
-            <thead>
-              <tr>
-                <th id="areaColSchool">學校</th>
-                <th id="areaColCampus">校舍</th>
-                <th id="areaColType">類別</th>
-                <th id="areaColGoogle">Google 評分</th>
-                <th id="areaColAvg">平均分</th>
-                <th id="areaColReviews">評論數</th>
-              </tr>
-            </thead>
-            <tbody id="areaTableBody"></tbody>
-          </table>
+          <div id="areaTable"></div>
+        </article>
+      </section>
+
+      <section id="searchView" class="hidden">
+        <div class="toolbar">
+          <a class="button btn-secondary" href="/" data-nav data-i18n="backHome"></a>
+        </div>
+        <article class="area-section">
+          <div class="area-head"><h2 id="searchTitle"></h2></div>
+          <div id="searchResults"></div>
         </article>
       </section>
 
       <section id="profileView" class="hidden">
-        <div class="toolbar">
-          <button id="backBtn">← 返回首頁</button>
-        </div>
+        <div class="toolbar" id="profileToolbar"></div>
         <article id="profileCard" class="profile"></article>
-        <div class="ad-slot" id="profileAdSlot">
-          <div class="ad-label" id="profileAdLabel">廣告</div>
-          <div class="ad-box" id="profileAdBox"></div>
+        <div class="ad-slot hidden" data-ad-view="profile">
+          <div class="ad-label" data-i18n="adLabel"></div>
+          <div class="ad-box"></div>
         </div>
       </section>
     </main>
 
-    <button id="chatToggle" class="chat-toggle">助理</button>
-    <section id="chatPanel" class="chat-panel hidden">
-      <div class="chat-head" id="chatTitle">網站助理</div>
-      <div id="chatMessages" class="chat-messages"></div>
-      <div id="chatQuick" class="chat-quick"></div>
-      <div class="chat-input">
-        <input id="chatInput" type="text" placeholder="輸入問題，例如：如何驗證電郵？" />
-        <button id="chatSend">送出</button>
+    <button id="chatToggle" type="button" class="chat-toggle" aria-controls="chatPanel" aria-expanded="false" data-i18n="chatToggle"></button>
+    <section id="chatPanel" class="chat-panel hidden" aria-labelledby="chatTitle">
+      <div class="chat-head">
+        <span id="chatTitle" data-i18n="chatTitle"></span>
+        <button id="chatClose" type="button" class="btn-secondary" data-i18n-aria-label="chatClose">×</button>
       </div>
+      <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+      <div id="chatQuick" class="chat-quick"></div>
+      <form id="chatForm" class="chat-input">
+        <label for="chatInput" class="visually-hidden" data-i18n="chatPlaceholder"></label>
+        <input id="chatInput" type="text" autocomplete="off" data-i18n-placeholder="chatPlaceholder" />
+        <button id="chatSend" type="submit" data-i18n="chatSend"></button>
+      </form>
     </section>
 
     <script>
-      const statusEl = document.getElementById('status');
-      const areaContainer = document.getElementById('areaContainer');
-      const homeView = document.getElementById('homeView');
-      const areaView = document.getElementById('areaView');
-      const profileView = document.getElementById('profileView');
-      const profileCard = document.getElementById('profileCard');
-      const backBtn = document.getElementById('backBtn');
-      const backToHomeBtn = document.getElementById('backToHomeBtn');
-      const langToggle = document.getElementById('langToggle');
-      const heroTitle = document.getElementById('heroTitle');
-      const heroSubtitle = document.getElementById('heroSubtitle');
-      const heroDisclaimer = document.getElementById('heroDisclaimer');
-      const filterArea = document.getElementById('filterArea');
-      const filterType = document.getElementById('filterType');
-      const filterScore = document.getElementById('filterScore');
-      const filterApply = document.getElementById('filterApply');
-      const filterReset = document.getElementById('filterReset');
-      const areaTitle = document.getElementById('areaTitle');
-      const areaTableBody = document.getElementById('areaTableBody');
-      const areaColSchool = document.getElementById('areaColSchool');
-      const areaColCampus = document.getElementById('areaColCampus');
-      const areaColType = document.getElementById('areaColType');
-      const areaColAvg = document.getElementById('areaColAvg');
-      const areaColReviews = document.getElementById('areaColReviews');
-      const areaColGoogle = document.getElementById('areaColGoogle');
-      const homeAdLabel = document.getElementById('homeAdLabel');
-      const areaAdLabel = document.getElementById('areaAdLabel');
-      const profileAdLabel = document.getElementById('profileAdLabel');
-      const homeAdBox = document.getElementById('homeAdBox');
-      const areaAdBox = document.getElementById('areaAdBox');
-      const profileAdBox = document.getElementById('profileAdBox');
-      const metaSource = document.getElementById('metaSource');
-      const metaTotal = document.getElementById('metaTotal');
-      const metaUpdated = document.getElementById('metaUpdated');
-      const metaMethod = document.getElementById('metaMethod');
-      const authStatusText = document.getElementById('authStatusText');
-      const googleLoginBtn = document.getElementById('googleLoginBtn');
-      const sendCodeBtn = document.getElementById('sendCodeBtn');
-      const verifyCodeInput = document.getElementById('verifyCodeInput');
-      const verifyCodeBtn = document.getElementById('verifyCodeBtn');
-      const captchaContainer = document.getElementById('captchaContainer');
-      const verifyMessage = document.getElementById('verifyMessage');
-      const chatToggle = document.getElementById('chatToggle');
-      const chatPanel = document.getElementById('chatPanel');
-      const chatTitle = document.getElementById('chatTitle');
-      const chatMessages = document.getElementById('chatMessages');
-      const chatQuick = document.getElementById('chatQuick');
-      const chatInput = document.getElementById('chatInput');
-      const chatSend = document.getElementById('chatSend');
+      (() => {
+        'use strict';
 
-      const adConfig = {
-        publisherId: 'ca-pub-XXXXXXXXXXXXXXXX',
-        slots: {
-          home: '1111111111',
-          area: '2222222222',
-          profile: '3333333333',
-        },
-      };
+        // Replace with your AdSense publisher and slot IDs; ad slots stay hidden until these are real.
+        const adConfig = {
+          publisherId: 'ca-pub-XXXXXXXXXXXXXXXX',
+          slots: {
+            home: '1111111111',
+            area: '2222222222',
+            profile: '3333333333',
+          },
+        };
 
-      const i18n = {
-        zh: {
-          heroTitle: '🌈 香港幼稚園排名',
-          heroSubtitle: '按地區顯示每區排名前 5 的幼稚園',
-          disclaimer: '本網站排名不接受任何學校付費或贊助，排名純粹由用戶評分及評論數據決定。',
-          loadingSchools: '正在載入學校資料...',
-          loadingProfile: '正在載入學校檔案...',
-          showingTop5: '已顯示每區前 5 間學校。',
-          showingAreaAll: '已顯示此區全部學校。',
-          backHome: '← 返回首頁',
-          viewAll: '查看全部',
-          applyFilters: '套用篩選',
-          resetFilters: '重設',
-          allAreas: '全部地區',
-          allTypes: '全部類別',
-          minAvgPlaceholder: '最低平均分',
-          adLabel: '廣告',
-          adHome: '首頁廣告位置（728x90 / 自適應）',
-          adArea: '地區頁廣告位置（728x90 / 自適應）',
-          adProfile: '學校頁廣告位置（728x90 / 自適應）',
-          noSchools: '沒有學校資料',
-          school: '學校',
-          campus: '校舍',
-          type: '類別',
-          avg: '平均分',
-          reviews: '評論數',
-           googleScore: 'Google 評分',
-          googleAddress: 'Google 地址',
-          dataSource: '資料來源',
-          totalSchools: '學校總數',
-          updatedAt: '更新時間',
-          method: '排名方法',
-          methodText: '先按網站平均評分排序，再按評論數排序。',
-          sourceText: '教育局幼稚園概覽（KGP）公開資料',
-          commentsHidden: '評論內容暫時隱藏。',
-          viewingProfile: '正在查看學校檔案：',
-          chineseName: '中文名稱',
-          englishName: '英文名稱',
-          district: '地區',
-          area: '分區',
-          address: '地址',
-          na: '不適用',
-          failed: '頁面載入失敗',
-          authGuest: '目前未登入（評論功能將要求登入）',
-          authLoggedIn: '已登入：',
-          authEmailVerified: '電郵已驗證，可發表評論。',
-          authEmailUnverified: '電郵未驗證，發表評論前請先驗證。',
-          loginWithGoogle: 'Google 登入',
-          sendVerifyCode: '發送驗證碼',
-          verifyEmail: '驗證電郵',
-          verifyCodePlaceholder: '6位驗證碼',
-          captchaMissing: '請先完成 CAPTCHA 驗證。',
-          verifyCodeSent: '驗證碼已發送。請查看電郵。',
-          verifyCodeSuccess: '電郵驗證成功。',
-          loginRequired: '請先登入 Google。',
-          captchaNotConfigured: 'CAPTCHA 未設定。請填寫 CAPTCHA_SITE_KEY。',
-          reviewTitle: '提交評分',
-          reviewRating: '評分（1-5）',
-          reviewComment: '評語（選填）',
-          reviewSubmit: '提交評分',
-          reviewNeedLogin: '請先使用 Google 登入。',
-          reviewNeedVerify: '提交評分前請先完成電郵驗證。',
-          reviewSuccess: '評分已提交。',
-          chatToggle: '助理',
-          chatTitle: '網站助理',
-          chatPlaceholder: '輸入問題，例如：如何驗證電郵？',
-          chatSend: '送出',
-          chatWelcome: '你好！我可以幫你快速導覽網站。',
-          chatHint: '你可以問：如何登入、如何驗證、如何評分、查看某區學校。',
-          chatTop5: '此頁會顯示各區前 5 名。你也可以點擊「查看全部」查看該區完整名單。',
-          chatLogin: '請點擊上方「Google 登入」按鈕完成登入。',
-          chatVerify: '登入後按「發送驗證碼」，輸入6位碼，再按「驗證電郵」。',
-          chatReview: '打開任何學校頁面，下方有「提交評分」表單。',
-          chatAreas: '你可以說「屯門」或「沙田」，我會直接帶你到該區頁面。',
-          chatUnknown: '我暫時未理解。你可問：登入、驗證、評分、地區、top 5。',
-          chatQuickTop5: '什麼是 Top 5？',
-          chatQuickVerify: '如何驗證電郵？',
-          chatQuickReview: '如何評分？',
-          chatQuickArea: '去屯門區',
-          chatNavigating: '正在帶你前往：',
-        },
-        en: {
-          heroTitle: '🌈 HK Kindergarten Ranking',
-          heroSubtitle: 'Top 5 kindergartens by each area in Hong Kong',
-          disclaimer: 'We are not paid or sponsored by any school. Rankings are determined purely by user ratings and review activity.',
-          loadingSchools: 'Loading schools...',
-          loadingProfile: 'Loading school profile...',
-          showingTop5: 'Showing top 5 schools per area.',
-          showingAreaAll: 'Showing all schools in this area.',
-          backHome: '← Back to Home',
-          viewAll: 'View all',
-          applyFilters: 'Apply filters',
-          resetFilters: 'Reset',
-          allAreas: 'All areas',
-          allTypes: 'All types',
-          minAvgPlaceholder: 'Min average score',
-          adLabel: 'Advertisement',
-          adHome: 'Home ad slot (728x90 / Responsive)',
-          adArea: 'Area page ad slot (728x90 / Responsive)',
-          adProfile: 'Profile page ad slot (728x90 / Responsive)',
-          noSchools: 'No schools',
-          school: 'School',
-          campus: 'Campus',
-          type: 'Type',
-          avg: 'Avg',
-          reviews: 'Reviews',
-           googleScore: 'Google Score',
-          googleAddress: 'Google Address',
-          dataSource: 'Data source',
-          totalSchools: 'Total schools',
-          updatedAt: 'Updated at',
-          method: 'Ranking method',
-          methodText: 'Sorted by site average score, then review count.',
-          sourceText: 'EDB KGP public listing data',
-          commentsHidden: 'Comments are hidden for now.',
-          viewingProfile: 'Viewing profile: ',
-          chineseName: 'Chinese Name',
-          englishName: 'English Name',
-          district: 'District',
-          area: 'Area',
-          address: 'Address',
-          na: 'N/A',
-          failed: 'Failed to load page',
-          authGuest: 'You are not logged in (login required for reviews).',
-          authLoggedIn: 'Logged in as: ',
-          authEmailVerified: 'Email is verified. You can submit reviews.',
-          authEmailUnverified: 'Email is not verified yet. Verify before submitting reviews.',
-          loginWithGoogle: 'Sign in with Google',
-          sendVerifyCode: 'Send code',
-          verifyEmail: 'Verify email',
-          verifyCodePlaceholder: '6-digit code',
-          captchaMissing: 'Please complete CAPTCHA first.',
-          verifyCodeSent: 'Verification code sent. Check your inbox.',
-          verifyCodeSuccess: 'Email verification successful.',
-          loginRequired: 'Please sign in with Google first.',
-          captchaNotConfigured: 'CAPTCHA is not configured. Set CAPTCHA_SITE_KEY.',
-          reviewTitle: 'Submit Rating',
-          reviewRating: 'Rating (1-5)',
-          reviewComment: 'Comment (optional)',
-          reviewSubmit: 'Submit rating',
-          reviewNeedLogin: 'Please sign in with Google first.',
-          reviewNeedVerify: 'Please verify your email before submitting a rating.',
-          reviewSuccess: 'Rating submitted.',
-          chatToggle: 'Assistant',
-          chatTitle: 'Site Assistant',
-          chatPlaceholder: 'Ask a question, e.g. how to verify email?',
-          chatSend: 'Send',
-          chatWelcome: 'Hi! I can help you navigate this site quickly.',
-          chatHint: 'Try asking: how to login, verify email, submit review, or open an area.',
-          chatTop5: 'This page shows top 5 schools by each area. Click "View all" for a full area list.',
-          chatLogin: 'Click the "Sign in with Google" button at the top.',
-          chatVerify: 'After login, click "Send code", enter the 6-digit code, then click "Verify email".',
-          chatReview: 'Open any school profile and use the "Submit rating" form at the bottom.',
-          chatAreas: 'You can say "Tuen Mun" or "Sha Tin" and I will open that area page.',
-          chatUnknown: 'I did not understand that yet. Try: login, verify, review, area, top 5.',
-          chatQuickTop5: 'What is Top 5?',
-          chatQuickVerify: 'How to verify email?',
-          chatQuickReview: 'How to submit review?',
-          chatQuickArea: 'Go to Tuen Mun',
-          chatNavigating: 'Navigating to: ',
-        },
-      };
+        const TOP_PER_AREA = 5;
+        const MAX_SEARCH_RESULTS = 100;
 
-      const areaLabel = {
-        central: { zh: '中西區', en: 'Central & Western' },
-        hkeast: { zh: '港島東區', en: 'HK East' },
-        islands: { zh: '離島區', en: 'Islands' },
-        southern: { zh: '南區', en: 'Southern' },
-        wanchai: { zh: '灣仔區', en: 'Wan Chai' },
-        kwaichung: { zh: '葵青區', en: 'Kwai Chung & Tsing Yi' },
-        tsuenwan: { zh: '荃灣區', en: 'Tsuen Wan' },
-        tuenmun: { zh: '屯門區', en: 'Tuen Mun' },
-        yuenlong: { zh: '元朗區', en: 'Yuen Long' },
-        north: { zh: '北區', en: 'North' },
-        shatin: { zh: '沙田區', en: 'Sha Tin' },
-        taipo: { zh: '大埔區', en: 'Tai Po' },
-        kowlooncity: { zh: '九龍城區', en: 'Kowloon City' },
-        kwuntong: { zh: '觀塘區', en: 'Kwun Tong' },
-        saikung: { zh: '西貢區', en: 'Sai Kung' },
-        shamshuipo: { zh: '深水埗區', en: 'Sham Shui Po' },
-        wongtaisin: { zh: '黃大仙區', en: 'Wong Tai Sin' },
-        yautsimmongkok: { zh: '油尖旺區', en: 'Yau Tsim & Mong Kok' },
-      };
+        const I18N = {
+          zh: {
+            siteTitle: '香港幼稚園排名',
+            heroTitle: '🌈 香港幼稚園排名',
+            heroSubtitle: '按地區顯示每區排名前 5 的幼稚園',
+            disclaimer: '本網站排名不接受任何學校付費或贊助，排名純粹由用戶評分及評論數據決定。',
+            aboutRanking: '關於排名：資料來源及計算方法',
+            loadingSchools: '正在載入學校資料...',
+            loadingProfile: '正在載入學校檔案...',
+            showingTop5: '已顯示每區前 5 間學校。',
+            showingArea: '已顯示此區全部學校。',
+            backHome: '← 返回首頁',
+            backToArea: '← {area}排名',
+            viewDistrict: '查看{area}排名 →',
+            viewAll: '查看全部（{count}）',
+            resetFilters: '重設',
+            allAreas: '全部地區',
+            allTypes: '全部類別',
+            minScorePlaceholder: '最低分數',
+            searchLabel: '搜尋學校',
+            searchPlaceholder: '搜尋學校名稱（中文或英文）',
+            searchTitle: '「{query}」的搜尋結果（{count}）',
+            searchNone: '找不到符合「{query}」的學校。',
+            searchTooMany: '只顯示首 {count} 個結果，請輸入更詳細的名稱。',
+            areaTitle: '{area}（{count}）',
+            areaPageTitle: '{area}幼稚園排名',
+            adLabel: '廣告',
+            noSchools: '沒有符合條件的學校。',
+            rank: '排名',
+            school: '學校',
+            type: '類別',
+            district: '地區',
+            score: '分數',
+            parents: '家長評分',
+            google: 'Google 評分',
+            typePUBLIC: '參加計劃',
+            typePRIVATE: '非計劃',
+            typeINTERNATIONAL: '國際',
+            dataSource: '資料來源',
+            sourceText: '教育局幼稚園概覽（KGP）公開資料、Google 評分及本網站家長評分',
+            totalSchools: '學校總數',
+            googleSynced: 'Google 評分更新日期',
+            method: '排名方法',
+            methodText:
+              '分數綜合本網站家長評分（每個評分作 3 個計算）及 Google 評分。評分較少的學校由 3.5 分起計，評分越多便越接近其實際平均分，因此單一評分不能令學校排名大升或大跌；沒有評分的學校排在最後。',
+            typeNote: '類別說明',
+            typeNoteText: '「參加計劃」指參加教育局幼稚園教育計劃（政府資助）的幼稚園；「非計劃」指沒有參加該計劃的幼稚園。',
+            commentsHidden: '評語只供本網站參考，不會公開顯示。',
+            chineseName: '中文名稱',
+            englishName: '英文名稱',
+            address: '地址',
+            openMap: '在 Google 地圖查看',
+            noRating: '未有評分',
+            failed: '頁面載入失敗，請稍後再試。',
+            notFound: '找不到這間學校。',
+            rankedIn: '在{area}排第 {rank} 名（共 {total} 間）',
+            unranked: '評分不足，暫未排名',
+            parentHint: '本網站 {count} 個家長評分',
+            parentHintNone: '本網站暫未有家長評分',
+            googleHint: '{count} 個 Google 評分',
+            googleHintNone: '未有 Google 評分',
+            authGuest: '使用 Google 登入後即可為幼稚園評分。',
+            authLoggedIn: '已登入：{email}',
+            loginWithGoogle: 'Google 登入',
+            logout: '登出',
+            loginFailed: 'Google 登入失敗，請再試一次。',
+            verifyIntro: '為幼稚園評分前，請先驗證你的電郵地址。',
+            sendVerifyCode: '發送驗證碼',
+            verifyEmail: '驗證電郵',
+            verifyCodePlaceholder: '6 位驗證碼',
+            verifyCodeInvalid: '請輸入 6 位數字驗證碼。',
+            verifyCodeSent: '驗證碼已發送，請查看電郵。',
+            verifyCodeSentDev: '驗證碼（開發模式）：{code}',
+            verifyCodeSuccess: '電郵驗證成功，你現在可以評分。',
+            captchaMissing: '請先完成人機驗證。',
+            captchaLoadFailed: '無法載入人機驗證，請重新整理頁面。',
+            reviewTitle: '為這間幼稚園評分',
+            reviewTitleExisting: '你的評分',
+            reviewExistingNote: '你已於 {date} 評分，可在下方修改。',
+            reviewRating: '評分',
+            reviewComment: '評語（選填）',
+            reviewSubmit: '提交評分',
+            reviewUpdate: '更新評分',
+            reviewPickRating: '請選擇 1 至 5 粒星。',
+            reviewNeedLogin: '使用 Google 登入後即可為這間幼稚園評分。',
+            reviewNeedVerify: '評分前請先在頁頂驗證你的電郵地址。',
+            reviewUnavailable: '評分功能暫未開放。',
+            reviewSuccess: '多謝你的評分！',
+            reviewUpdated: '已更新你的評分。',
+            rateLimited: '操作太頻密，請稍後再試。',
+            sessionExpired: '登入已過期，請重新登入。',
+            submitting: '提交中...',
+            stars: '{n} 粒星',
+            chatToggle: '助理',
+            chatClose: '關閉助理',
+            chatTitle: '網站助理',
+            chatPlaceholder: '輸入問題、地區或學校名稱',
+            chatSend: '送出',
+            chatWelcome: '你好！我可以幫你快速導覽網站。',
+            chatHint: '你可以問：如何評分、排名如何計算，或輸入地區／學校名稱。',
+            chatTop5: '首頁顯示各區前 5 名。按「查看全部」可看該區完整名單。',
+            chatLogin: '請按頁頂的「Google 登入」按鈕。',
+            chatVerify: '用 Google 登入後，電郵通常會自動完成驗證。如頁頂出現驗證欄，按「發送驗證碼」並輸入電郵收到的 6 位驗證碼。',
+            chatReview: '打開任何學校頁面，在下方選擇星數並提交評分。每間學校你可評分一次，之後亦可修改。',
+            chatAreas: '輸入地區名稱，例如「屯門」或「沙田」，我會帶你到該區頁面。',
+            chatUnknown: '我暫時未理解。你可以問：如何評分、排名如何計算，或輸入地區／學校名稱。',
+            chatQuickTop5: '什麼是 Top 5？',
+            chatQuickMethod: '排名如何計算？',
+            chatQuickReview: '如何評分？',
+            chatQuickArea: '去屯門區',
+            chatNavigating: '正在帶你前往：{area}',
+            chatSearching: '找到 {count} 間相關學校，已顯示搜尋結果。',
+          },
+          en: {
+            siteTitle: 'HK Kindergarten Ranking',
+            heroTitle: '🌈 HK Kindergarten Ranking',
+            heroSubtitle: 'Top 5 kindergartens in each district of Hong Kong',
+            disclaimer: 'We are not paid or sponsored by any school. Rankings are determined purely by user ratings and review activity.',
+            aboutRanking: 'About the ranking: data sources and method',
+            loadingSchools: 'Loading schools...',
+            loadingProfile: 'Loading school profile...',
+            showingTop5: 'Showing the top 5 schools in each district.',
+            showingArea: 'Showing all schools in this district.',
+            backHome: '← Back to Home',
+            backToArea: '← {area} rankings',
+            viewDistrict: 'See {area} rankings →',
+            viewAll: 'View all ({count})',
+            resetFilters: 'Reset',
+            allAreas: 'All districts',
+            allTypes: 'All types',
+            minScorePlaceholder: 'Min score',
+            searchLabel: 'Search schools',
+            searchPlaceholder: 'Search by school name (English or Chinese)',
+            searchTitle: 'Results for “{query}” ({count})',
+            searchNone: 'No schools match “{query}”.',
+            searchTooMany: 'Showing the first {count} results. Try a more specific name.',
+            areaTitle: '{area} ({count})',
+            areaPageTitle: 'Best kindergartens in {area}',
+            adLabel: 'Advertisement',
+            noSchools: 'No schools match these filters.',
+            rank: 'Rank',
+            school: 'School',
+            type: 'Type',
+            district: 'District',
+            score: 'Score',
+            parents: 'Parents',
+            google: 'Google',
+            typePUBLIC: 'Scheme',
+            typePRIVATE: 'Non-scheme',
+            typeINTERNATIONAL: 'International',
+            dataSource: 'Data sources',
+            sourceText: 'EDB Kindergarten Profile (KGP) public listing, Google ratings, and parent ratings on this site',
+            totalSchools: 'Total schools',
+            googleSynced: 'Google ratings updated',
+            method: 'Ranking method',
+            methodText:
+              'The score combines parent ratings on this site (each counts 3 times) with Google ratings. Schools with few ratings start near 3.5 and move towards their real average as ratings come in, so a single rating cannot push a school to the top or sink it. Schools with no ratings are listed last.',
+            typeNote: 'Types',
+            typeNoteText: '“Scheme” kindergartens join the EDB Kindergarten Education Scheme (government-subsidised); “Non-scheme” kindergartens do not.',
+            commentsHidden: 'Comments help us moderate ratings and are not shown publicly.',
+            chineseName: 'Chinese name',
+            englishName: 'English name',
+            address: 'Address',
+            openMap: 'View on Google Maps',
+            noRating: 'No ratings',
+            failed: 'Failed to load the page. Please try again later.',
+            notFound: 'We could not find this school.',
+            rankedIn: 'Ranked #{rank} of {total} in {area}',
+            unranked: 'Not ranked yet: no ratings',
+            parentHint: '{count} parent ratings on this site',
+            parentHintNone: 'No parent ratings on this site yet',
+            googleHint: '{count} Google ratings',
+            googleHintNone: 'No Google rating',
+            authGuest: 'Sign in with Google to rate kindergartens.',
+            authLoggedIn: 'Signed in as {email}',
+            loginWithGoogle: 'Sign in with Google',
+            logout: 'Sign out',
+            loginFailed: 'Google sign-in failed. Please try again.',
+            verifyIntro: 'Please verify your email address before rating kindergartens.',
+            sendVerifyCode: 'Send code',
+            verifyEmail: 'Verify email',
+            verifyCodePlaceholder: '6-digit code',
+            verifyCodeInvalid: 'Please enter the 6-digit code.',
+            verifyCodeSent: 'Verification code sent. Check your inbox.',
+            verifyCodeSentDev: 'Verification code (dev mode): {code}',
+            verifyCodeSuccess: 'Email verified. You can now rate kindergartens.',
+            captchaMissing: 'Please complete the CAPTCHA first.',
+            captchaLoadFailed: 'Could not load the CAPTCHA. Please refresh the page.',
+            reviewTitle: 'Rate this kindergarten',
+            reviewTitleExisting: 'Your rating',
+            reviewExistingNote: 'You rated this school on {date}. You can change your rating below.',
+            reviewRating: 'Rating',
+            reviewComment: 'Comment (optional)',
+            reviewSubmit: 'Submit rating',
+            reviewUpdate: 'Update rating',
+            reviewPickRating: 'Please choose 1 to 5 stars.',
+            reviewNeedLogin: 'Sign in with Google to rate this kindergarten.',
+            reviewNeedVerify: 'Please verify your email address at the top of the page before rating.',
+            reviewUnavailable: 'Ratings are not open yet.',
+            reviewSuccess: 'Thanks for your rating!',
+            reviewUpdated: 'Your rating has been updated.',
+            rateLimited: 'Too many attempts. Please try again later.',
+            sessionExpired: 'Your session has expired. Please sign in again.',
+            submitting: 'Submitting...',
+            stars: '{n} stars',
+            chatToggle: 'Assistant',
+            chatClose: 'Close assistant',
+            chatTitle: 'Site Assistant',
+            chatPlaceholder: 'Ask a question, or type a district or school',
+            chatSend: 'Send',
+            chatWelcome: 'Hi! I can help you find your way around the site.',
+            chatHint: 'Try asking how to rate a school or how the ranking works, or type a district or school name.',
+            chatTop5: 'The home page shows the top 5 schools in each district. Click “View all” for the full list.',
+            chatLogin: 'Click the “Sign in with Google” button at the top of the page.',
+            chatVerify: 'Signing in with Google usually verifies your email automatically. If a verification box appears at the top, click “Send code” and enter the 6-digit code from your email.',
+            chatReview: 'Open any school page, pick a star rating at the bottom and submit it. You can rate each school once and change your rating later.',
+            chatAreas: 'Type a district such as “Tuen Mun” or “Sha Tin” and I will open that district.',
+            chatUnknown: 'I did not understand that. Ask how to rate a school or how the ranking works, or type a district or school name.',
+            chatQuickTop5: 'What is Top 5?',
+            chatQuickMethod: 'How is the ranking calculated?',
+            chatQuickReview: 'How do I rate a school?',
+            chatQuickArea: 'Go to Tuen Mun',
+            chatNavigating: 'Opening: {area}',
+            chatSearching: 'Found {count} matching schools. Showing the results.',
+          },
+        };
 
-      let currentLang = 'zh';
-      let cachedGroups = [];
-      let allSchoolsCache = [];
-      let cachedAreaSchools = [];
-      let cachedAreaKey = '';
-      let cachedProfile = null;
-      let filterState = {
-        area: '',
-        type: '',
-        minScore: '',
-      };
-      let authUser = null;
-      let captchaConfig = null;
-      let captchaToken = '';
-      let captchaWidgetId = null;
-      let captchaProviderLoaded = false;
-      let chatInitialized = false;
+        // Hong Kong's 18 districts in the official order (Hong Kong Island, Kowloon, New Territories).
+        const DISTRICTS = {
+          central: { zh: '中西區', en: 'Central & Western', aliases: ['central and western', 'central', 'sheung wan', 'sai ying pun', 'kennedy town', '中環', '上環', '西營盤', '堅尼地城'] },
+          wanchai: { zh: '灣仔區', en: 'Wan Chai', aliases: ['causeway bay', 'happy valley', '銅鑼灣', '跑馬地'] },
+          hkeast: { zh: '東區', en: 'Eastern', aliases: ['hk east', 'north point', 'quarry bay', 'tai koo', 'chai wan', '港島東', '北角', '鰂魚涌', '太古', '柴灣'] },
+          southern: { zh: '南區', en: 'Southern', aliases: ['aberdeen', 'ap lei chau', 'stanley', 'pok fu lam', '香港仔', '鴨脷洲', '赤柱', '薄扶林'] },
+          yautsimmongkok: { zh: '油尖旺區', en: 'Yau Tsim Mong', aliases: ['mong kok', 'mongkok', 'yau ma tei', 'tsim sha tsui', '旺角', '油麻地', '尖沙咀'] },
+          shamshuipo: { zh: '深水埗區', en: 'Sham Shui Po', aliases: ['cheung sha wan', 'lai chi kok', '長沙灣', '荔枝角'] },
+          kowlooncity: { zh: '九龍城區', en: 'Kowloon City', aliases: ['kowloon tong', 'ho man tin', 'to kwa wan', 'hung hom', 'kai tak', '九龍塘', '何文田', '土瓜灣', '紅磡', '啟德'] },
+          wongtaisin: { zh: '黃大仙區', en: 'Wong Tai Sin', aliases: ['diamond hill', 'san po kong', '鑽石山', '新蒲崗'] },
+          kwuntong: { zh: '觀塘區', en: 'Kwun Tong', aliases: ['ngau tau kok', 'lam tin', 'yau tong', '牛頭角', '藍田', '油塘'] },
+          kwaichung: { zh: '葵青區', en: 'Kwai Tsing', aliases: ['kwai chung', 'tsing yi', '葵涌', '青衣'] },
+          tsuenwan: { zh: '荃灣區', en: 'Tsuen Wan', aliases: [] },
+          tuenmun: { zh: '屯門區', en: 'Tuen Mun', aliases: [] },
+          yuenlong: { zh: '元朗區', en: 'Yuen Long', aliases: ['tin shui wai', '天水圍'] },
+          north: { zh: '北區', en: 'North', aliases: ['sheung shui', 'fanling', '上水', '粉嶺'] },
+          taipo: { zh: '大埔區', en: 'Tai Po', aliases: [] },
+          shatin: { zh: '沙田區', en: 'Sha Tin', aliases: ['ma on shan', 'tai wai', '馬鞍山', '大圍'] },
+          saikung: { zh: '西貢區', en: 'Sai Kung', aliases: ['tseung kwan o', '將軍澳'] },
+          islands: { zh: '離島區', en: 'Islands', aliases: ['tung chung', 'lantau', 'discovery bay', '東涌', '大嶼山', '愉景灣'] },
+        };
+        const DISTRICT_ORDER = Object.keys(DISTRICTS);
 
-      function isAdsConfigured() {
-        return (
-          /^ca-pub-\d{16}$/.test(adConfig.publisherId) &&
-          /^\d+$/.test(adConfig.slots.home) &&
-          /^\d+$/.test(adConfig.slots.area) &&
-          /^\d+$/.test(adConfig.slots.profile)
-        );
-      }
+        const $ = (id) => document.getElementById(id);
+        const el = {
+          heroTitle: $('heroTitle'),
+          langToggle: $('langToggle'),
+          metaSummary: $('metaSummary'),
+          metaSource: $('metaSource'),
+          metaTotal: $('metaTotal'),
+          metaUpdated: $('metaUpdated'),
+          metaMethod: $('metaMethod'),
+          metaTypes: $('metaTypes'),
+          searchInput: $('searchInput'),
+          filterArea: $('filterArea'),
+          filterType: $('filterType'),
+          filterScore: $('filterScore'),
+          filterReset: $('filterReset'),
+          accountPanel: $('accountPanel'),
+          authStatusText: $('authStatusText'),
+          googleLoginBtn: $('googleLoginBtn'),
+          logoutBtn: $('logoutBtn'),
+          verifyPanel: $('verifyPanel'),
+          sendCodeBtn: $('sendCodeBtn'),
+          verifyCodeInput: $('verifyCodeInput'),
+          verifyCodeBtn: $('verifyCodeBtn'),
+          verifyCaptcha: $('verifyCaptcha'),
+          verifyMessage: $('verifyMessage'),
+          status: $('status'),
+          areaContainer: $('areaContainer'),
+          areaTitle: $('areaTitle'),
+          areaTable: $('areaTable'),
+          searchTitle: $('searchTitle'),
+          searchResults: $('searchResults'),
+          profileToolbar: $('profileToolbar'),
+          profileCard: $('profileCard'),
+          chatToggle: $('chatToggle'),
+          chatPanel: $('chatPanel'),
+          chatClose: $('chatClose'),
+          chatMessages: $('chatMessages'),
+          chatQuick: $('chatQuick'),
+          chatForm: $('chatForm'),
+          chatInput: $('chatInput'),
+        };
+        const views = {
+          home: $('homeView'),
+          area: $('areaView'),
+          search: $('searchView'),
+          profile: $('profileView'),
+        };
 
-      function mountAd(adBoxEl, slotId) {
-        if (!adBoxEl || !slotId) return;
+        const state = {
+          lang: 'zh',
+          schools: null,
+          schoolsPromise: null,
+          searchIndex: new Map(),
+          user: null,
+          config: { provider: 'recaptcha', siteKey: '', requireEmailVerified: true, googleLoginEnabled: false },
+          filters: { type: '', minScore: '' },
+          view: 'home',
+          chatStarted: false,
+        };
 
-        adBoxEl.innerHTML = `
-          <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="${adConfig.publisherId}"
-            data-ad-slot="${slotId}"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        `;
+        // ---------- HTML escaping ----------
 
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (error) {
-          adBoxEl.textContent = currentLang === 'zh' ? '廣告載入中' : 'Loading ad';
+        class SafeHtml {
+          constructor(value) {
+            this.value = value;
+          }
         }
-      }
 
-      function setupAds() {
-        if (!isAdsConfigured()) {
-          homeAdBox.textContent = t('adHome');
-          areaAdBox.textContent = t('adArea');
-          profileAdBox.textContent = t('adProfile');
-          return;
+        const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+
+        function renderValue(value) {
+          if (value instanceof SafeHtml) return value.value;
+          if (Array.isArray(value)) return value.map(renderValue).join('');
+          if (value === null || value === undefined || value === false) return '';
+          return String(value).replace(/[&<>"']/g, (ch) => ESCAPES[ch]);
         }
 
-        mountAd(homeAdBox, adConfig.slots.home);
-        mountAd(areaAdBox, adConfig.slots.area);
-        mountAd(profileAdBox, adConfig.slots.profile);
-      }
-
-      function t(key) {
-        return i18n[currentLang][key] || key;
-      }
-
-      function appendChatMessage(role, text) {
-        const bubble = document.createElement('div');
-        bubble.className = `chat-bubble ${role === 'user' ? 'chat-user' : 'chat-bot'}`;
-        bubble.textContent = text;
-        chatMessages.appendChild(bubble);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-
-      function renderChatQuickActions() {
-        chatQuick.innerHTML = '';
-        const quickIntents = [
-          { label: t('chatQuickTop5'), intent: 'top5' },
-          { label: t('chatQuickVerify'), intent: 'verify' },
-          { label: t('chatQuickReview'), intent: 'review' },
-          { label: t('chatQuickArea'), intent: 'tuenmun' },
-        ];
-
-        for (const quick of quickIntents) {
-          const btn = document.createElement('button');
-          btn.textContent = quick.label;
-          btn.addEventListener('click', async () => {
-            appendChatMessage('user', quick.label);
-            await handleChatIntent(quick.intent);
+        /** Template tag: every interpolated value is escaped unless it is itself html`...`. */
+        function html(strings, ...values) {
+          let out = strings[0];
+          values.forEach((value, index) => {
+            out += renderValue(value) + strings[index + 1];
           });
-          chatQuick.appendChild(btn);
-        }
-      }
-
-      function detectAreaIntent(message) {
-        const text = String(message || '').toLowerCase().trim();
-        const matchers = [
-          { key: 'tuenmun', terms: ['屯門', 'tuen mun', 'tuenmun'] },
-          { key: 'shatin', terms: ['沙田', 'sha tin', 'shatin'] },
-          { key: 'yuenlong', terms: ['元朗', 'yuen long', 'yuenlong'] },
-          { key: 'tsuenwan', terms: ['荃灣', 'tsuen wan', 'tsuenwan'] },
-          { key: 'north', terms: ['北區', 'north district', 'north'] },
-          { key: 'taipo', terms: ['大埔', 'tai po', 'taipo'] },
-          { key: 'kowlooncity', terms: ['九龍城', 'kowloon city', 'kowlooncity'] },
-          { key: 'kwuntong', terms: ['觀塘', 'kwun tong', 'kwuntong'] },
-          { key: 'wanchai', terms: ['灣仔', 'wan chai', 'wanchai'] },
-          { key: 'central', terms: ['中西區', 'central', 'central and western'] },
-        ];
-
-        for (const item of matchers) {
-          if (item.terms.some((term) => text.includes(term))) return item.key;
+          return new SafeHtml(out);
         }
 
-        return '';
-      }
-
-      async function navigateAreaFromChat(areaKey) {
-        if (!areaKey) return;
-        appendChatMessage('bot', `${t('chatNavigating')}${formatArea(areaKey)}`);
-        history.pushState({ areaKey }, '', `/?area=${encodeURIComponent(areaKey)}`);
-        await loadArea(areaKey);
-      }
-
-      async function handleChatIntent(rawText) {
-        const text = String(rawText || '').toLowerCase().trim();
-        const areaKey = detectAreaIntent(text);
-        if (areaKey) {
-          await navigateAreaFromChat(areaKey);
-          return;
+        function setHtml(target, content) {
+          target.innerHTML = renderValue(content);
         }
 
-        if (text.includes('top') || text.includes('排行') || text.includes('前 5') || text.includes('top5')) {
-          appendChatMessage('bot', t('chatTop5'));
-          return;
+        // ---------- small utilities ----------
+
+        const storage = {
+          get(key) {
+            try {
+              return window.localStorage.getItem(key);
+            } catch {
+              return null;
+            }
+          },
+          set(key, value) {
+            try {
+              window.localStorage.setItem(key, value);
+            } catch {
+              // Storage unavailable (private mode); the preference just isn't remembered.
+            }
+          },
+        };
+
+        function t(key, params) {
+          const template = I18N[state.lang][key] ?? I18N.zh[key] ?? key;
+          return params ? template.replace(/\{(\w+)\}/g, (_, name) => String(params[name] ?? '')) : template;
         }
 
-        if (text.includes('login') || text.includes('登入') || text.includes('google')) {
-          appendChatMessage('bot', t('chatLogin'));
-          return;
+        function normalizeSearch(value) {
+          return String(value || '')
+            .normalize('NFKC')
+            .toLowerCase()
+            .replace(/[^\p{L}\p{N}]+/gu, '');
         }
 
-        if (text.includes('verify') || text.includes('驗證') || text.includes('電郵') || text.includes('email')) {
-          appendChatMessage('bot', t('chatVerify'));
-          return;
-        }
-
-        if (text.includes('review') || text.includes('評分') || text.includes('評論')) {
-          appendChatMessage('bot', t('chatReview'));
-          return;
-        }
-
-        if (text.includes('area') || text.includes('地區')) {
-          appendChatMessage('bot', t('chatAreas'));
-          return;
-        }
-
-        appendChatMessage('bot', t('chatUnknown'));
-      }
-
-      function initializeChat() {
-        if (!chatInitialized) {
-          appendChatMessage('bot', t('chatWelcome'));
-          appendChatMessage('bot', t('chatHint'));
-          chatInitialized = true;
-        }
-        renderChatQuickActions();
-      }
-
-      function setVerifyMessage(message) {
-        verifyMessage.textContent = message || '';
-      }
-
-      function renderAuthStatus() {
-        if (!authUser) {
-          authStatusText.textContent = t('authGuest');
-          sendCodeBtn.disabled = true;
-          verifyCodeBtn.disabled = true;
-          return;
-        }
-
-        authStatusText.textContent = `${t('authLoggedIn')}${authUser.email}`;
-        sendCodeBtn.disabled = Boolean(authUser.emailVerifiedAt);
-        verifyCodeBtn.disabled = Boolean(authUser.emailVerifiedAt);
-
-        if (authUser.emailVerifiedAt) {
-          setVerifyMessage(t('authEmailVerified'));
-        } else {
-          setVerifyMessage(t('authEmailUnverified'));
-        }
-      }
-
-      async function loadAuthMe() {
-        try {
-          authUser = await fetchJson('/api/auth/me');
-        } catch {
-          authUser = null;
-        }
-        renderAuthStatus();
-      }
-
-      function resetCaptchaWidget() {
-        captchaToken = '';
-        if (!captchaConfig?.siteKey) return;
-
-        if (captchaConfig.provider === 'turnstile' && window.turnstile && captchaWidgetId !== null) {
-          window.turnstile.reset(captchaWidgetId);
-        }
-
-        if (captchaConfig.provider === 'recaptcha' && window.grecaptcha && captchaWidgetId !== null) {
-          window.grecaptcha.reset(captchaWidgetId);
-        }
-      }
-
-      async function loadCaptchaConfig() {
-        try {
-          captchaConfig = await fetchJson('/api/auth/captcha-config');
-        } catch {
-          captchaConfig = { provider: 'recaptcha', siteKey: '', enabled: false };
-        }
-      }
-
-      function loadCaptchaScript() {
-        if (!captchaConfig?.siteKey) {
-          captchaContainer.textContent = t('captchaNotConfigured');
-          return Promise.resolve();
-        }
-
-        if (captchaProviderLoaded) return Promise.resolve();
-
-        const script = document.createElement('script');
-        script.async = true;
-        script.defer = true;
-        script.src =
-          captchaConfig.provider === 'recaptcha'
-            ? 'https://www.google.com/recaptcha/api.js?render=explicit'
-            : 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-
-        return new Promise((resolve, reject) => {
-          script.onload = () => {
-            captchaProviderLoaded = true;
-            resolve();
+        function debounce(fn, ms) {
+          let timer;
+          return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), ms);
           };
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
+        }
 
-      function renderCaptchaWidget() {
-        if (!captchaConfig?.siteKey) return;
-        captchaContainer.innerHTML = '';
+        function formatArea(areaKey) {
+          const district = DISTRICTS[String(areaKey || '').toLowerCase()];
+          return district ? district[state.lang] : String(areaKey || '');
+        }
 
-        const widgetHost = document.createElement('div');
-        captchaContainer.appendChild(widgetHost);
+        function areaOrder(areaKey) {
+          const index = DISTRICT_ORDER.indexOf(areaKey);
+          return index === -1 ? DISTRICT_ORDER.length : index;
+        }
 
-        if (captchaConfig.provider === 'recaptcha' && window.grecaptcha) {
-          captchaWidgetId = window.grecaptcha.render(widgetHost, {
-            sitekey: captchaConfig.siteKey,
-            callback: (token) => {
-              captchaToken = token;
-            },
-            'expired-callback': () => {
-              captchaToken = '';
-            },
+        function formatDate(value) {
+          const date = new Date(value);
+          if (Number.isNaN(date.getTime())) return '';
+          return date.toLocaleDateString(state.lang === 'zh' ? 'zh-HK' : 'en-GB', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
           });
         }
 
-        if (captchaConfig.provider === 'turnstile' && window.turnstile) {
-          captchaWidgetId = window.turnstile.render(widgetHost, {
-            sitekey: captchaConfig.siteKey,
-            callback: (token) => {
-              captchaToken = token;
-            },
-            'expired-callback': () => {
-              captchaToken = '';
-            },
+        function formatRating(value) {
+          return typeof value === 'number' ? value.toFixed(1) : '';
+        }
+
+        function schoolPrimaryName(school) {
+          return state.lang === 'zh' ? school.chineseName || school.name : school.name || school.chineseName;
+        }
+
+        function schoolSecondaryName(school) {
+          const secondary = state.lang === 'zh' ? school.name : school.chineseName;
+          return secondary && secondary !== schoolPrimaryName(school) ? secondary : '';
+        }
+
+        function typeLabel(type) {
+          return t(`type${type}`);
+        }
+
+        function setStatus(message, kind) {
+          el.status.textContent = message || '';
+          el.status.classList.toggle('error', kind === 'error');
+          el.status.classList.toggle('hidden', !message);
+        }
+
+        function setMessage(target, message, kind) {
+          if (!target) return;
+          target.textContent = message || '';
+          target.classList.toggle('ok', kind === 'ok');
+          target.classList.toggle('error', kind === 'error');
+        }
+
+        async function fetchJson(url) {
+          const response = await fetch(url, { credentials: 'include' });
+          if (!response.ok) {
+            const error = new Error(`Request failed (${response.status})`);
+            error.status = response.status;
+            throw error;
+          }
+          return response.json();
+        }
+
+        async function postJson(url, body) {
+          const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body || {}),
+          });
+          const data = await response.json().catch(() => ({}));
+          return { ok: response.ok, status: response.status, data };
+        }
+
+        function errorMessage(result) {
+          if (result.status === 429) return t('rateLimited');
+          if (result.status === 401) return t('sessionExpired');
+          return result.data?.error || t('failed');
+        }
+
+        // ---------- data ----------
+
+        function buildSearchIndex(schools) {
+          state.searchIndex = new Map(
+            schools.map((school) => [
+              school.id,
+              [school.name, school.chineseName].map(normalizeSearch).join('|'),
+            ]),
+          );
+        }
+
+        async function ensureSchools(force = false) {
+          if (state.schools && !force) return state.schools;
+          if (!state.schoolsPromise || force) {
+            const request = fetchJson('/api/kindergartens').then((schools) => {
+              state.schools = schools;
+              buildSearchIndex(schools);
+              renderMeta();
+              renderAreaOptions();
+              return schools;
+            });
+            state.schoolsPromise = request;
+            request.catch(() => {}).finally(() => {
+              if (state.schoolsPromise === request) state.schoolsPromise = null;
+            });
+          }
+          return state.schoolsPromise;
+        }
+
+        function applyFilters(schools) {
+          const type = state.filters.type;
+          const minScore = state.filters.minScore === '' ? null : Number(state.filters.minScore);
+          return schools.filter((school) => {
+            if (type && school.type !== type) return false;
+            if (minScore !== null && !(school.weightedScore >= minScore)) return false;
+            return true;
           });
         }
-      }
 
-      function getCaptchaTokenOrFail() {
-        if (!captchaConfig?.siteKey) {
-          // dev bypass – backend also bypasses when not configured
-          return 'dev-bypass';
+        function searchSchools(query) {
+          const needle = normalizeSearch(query);
+          if (!needle) return [];
+          return (state.schools || [])
+            .filter((school) => (state.searchIndex.get(school.id) || '').includes(needle))
+            .sort((a, b) => (b.weightedScore ?? -1) - (a.weightedScore ?? -1) || a.name.localeCompare(b.name));
         }
 
-        if (!captchaToken) {
-          setVerifyMessage(t('captchaMissing'));
-          return '';
-        }
-
-        return captchaToken;
-      }
-
-      async function sendEmailVerificationCode() {
-        if (!authUser) {
-          setVerifyMessage(t('loginRequired'));
-          return;
-        }
-
-        const token = getCaptchaTokenOrFail();
-        if (!token) return;
-
-        const response = await fetch('/api/auth/email/send-code', {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ captchaToken: token }),
-        });
-
-        const json = await response.json().catch(() => ({}));
-        if (!response.ok) {
-          setVerifyMessage(json.error || t('failed'));
-          resetCaptchaWidget();
-          return;
-        }
-
-        setVerifyMessage(json.devCode ? `${t('verifyCodeSent')} (${json.devCode})` : t('verifyCodeSent'));
-        resetCaptchaWidget();
-      }
-
-      async function verifyEmailCode() {
-        if (!authUser) {
-          setVerifyMessage(t('loginRequired'));
-          return;
-        }
-
-        const code = String(verifyCodeInput.value || '').trim();
-        const token = getCaptchaTokenOrFail();
-        if (!token) return;
-
-        const response = await fetch('/api/auth/email/verify', {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code, captchaToken: token }),
-        });
-
-        const json = await response.json().catch(() => ({}));
-        if (!response.ok) {
-          setVerifyMessage(json.error || t('failed'));
-          resetCaptchaWidget();
-          return;
-        }
-
-        setVerifyMessage(t('verifyCodeSuccess'));
-        verifyCodeInput.value = '';
-        resetCaptchaWidget();
-        await loadAuthMe();
-      }
-
-      function formatArea(areaKey) {
-        const key = String(areaKey || '').toLowerCase();
-        return areaLabel[key]?.[currentLang] || areaKey;
-      }
-
-      function normalizeBaseName(name) {
-        return String(name || '')
-          .replace(/[（(][^）)]*[）)]/g, '')
-          .replace(/[^\p{L}\p{N}]+/gu, '')
-          .toLowerCase()
-          .trim();
-      }
-
-      function extractCampusFromName(name) {
-        const text = String(name || '');
-        const match = text.match(/[（(]([^）)]+)[）)]/);
-        return match ? match[1].trim() : '';
-      }
-
-      function canonicalSchoolKey(school) {
-        const rawName = String(school.chineseName || school.name || '');
-        const campus =
-          extractCampusFromName(school.chineseName || '') ||
-          extractCampusFromName(school.name || '') ||
-          String(school.district || '');
-
-        const normalizedName = rawName
-          .normalize('NFKC')
-          .replace(/[（(][^）)]*[）)]/g, '')
-          .replace(/KINDERGARTEN|NURSERY|PRE\s*-?SCHOOL|INTERNATIONAL/gi, '')
-          .replace(/幼稚園|幼兒園|幼兒學校|國際/g, '')
-          .replace(/[^\p{L}\p{N}]+/gu, '')
-          .toLowerCase()
-          .trim();
-
-        const normalizedCampus = String(campus)
-          .normalize('NFKC')
-          .replace(/[^\p{L}\p{N}]+/gu, '')
-          .toLowerCase()
-          .trim();
-
-        return `${normalizedName}::${normalizedCampus}`;
-      }
-
-      function choosePreferredSchool(existing, incoming) {
-        const existingIsKg = /KINDERGARTEN|幼稚園/i.test(existing.name || '') || /幼稚園/.test(existing.chineseName || '');
-        const incomingIsKg = /KINDERGARTEN|幼稚園/i.test(incoming.name || '') || /幼稚園/.test(incoming.chineseName || '');
-
-        if (incomingIsKg && !existingIsKg) return incoming;
-        if (!incomingIsKg && existingIsKg) return existing;
-
-        const existingRating = existing.avgRating ?? -1;
-        const incomingRating = incoming.avgRating ?? -1;
-        if (incomingRating > existingRating) return incoming;
-
-        return existing;
-      }
-
-      function collapseSimilarSchools(schools) {
-        const map = new Map();
-
-        for (const school of schools || []) {
-          const key = canonicalSchoolKey(school);
-          if (!map.has(key)) {
-            map.set(key, school);
-          } else {
-            map.set(key, choosePreferredSchool(map.get(key), school));
+        function groupByArea(schools) {
+          const grouped = new Map();
+          for (const school of schools) {
+            const key = school.area?.name || 'other';
+            if (!grouped.has(key)) grouped.set(key, []);
+            grouped.get(key).push(school);
           }
+          return new Map([...grouped.entries()].sort(([a], [b]) => areaOrder(a) - areaOrder(b) || a.localeCompare(b)));
         }
 
-        return [...map.values()];
-      }
+        // ---------- rendering ----------
 
-      function schoolPrimaryName(school) {
-        return currentLang === 'zh'
-          ? school.chineseName || school.name
-          : school.name || school.chineseName;
-      }
-
-      function schoolSecondaryName(school) {
-        return currentLang === 'zh'
-          ? school.name || ''
-          : school.chineseName || '';
-      }
-
-      function applyLanguageUI() {
-        heroTitle.textContent = t('heroTitle');
-        heroSubtitle.textContent = t('heroSubtitle');
-        heroDisclaimer.textContent = t('disclaimer');
-        backBtn.textContent = t('backHome');
-        backToHomeBtn.textContent = t('backHome');
-        langToggle.textContent = currentLang === 'zh' ? 'EN' : '中文';
-        areaColSchool.textContent = t('school');
-        areaColCampus.textContent = t('campus');
-        areaColType.textContent = t('type');
-        areaColAvg.textContent = t('avg');
-        areaColReviews.textContent = t('reviews');
-         areaColGoogle.textContent = t('googleScore');
-        filterApply.textContent = t('applyFilters');
-        filterReset.textContent = t('resetFilters');
-        filterScore.placeholder = t('minAvgPlaceholder');
-        chatToggle.textContent = t('chatToggle');
-        chatTitle.textContent = t('chatTitle');
-        chatInput.placeholder = t('chatPlaceholder');
-        chatSend.textContent = t('chatSend');
-        googleLoginBtn.textContent = t('loginWithGoogle');
-        sendCodeBtn.textContent = t('sendVerifyCode');
-        verifyCodeBtn.textContent = t('verifyEmail');
-        verifyCodeInput.placeholder = t('verifyCodePlaceholder');
-        homeAdLabel.textContent = t('adLabel');
-        areaAdLabel.textContent = t('adLabel');
-        profileAdLabel.textContent = t('adLabel');
-        if (!isAdsConfigured()) {
-          homeAdBox.textContent = t('adHome');
-          areaAdBox.textContent = t('adArea');
-          profileAdBox.textContent = t('adProfile');
-        }
-        document.documentElement.lang = currentLang === 'zh' ? 'zh-Hant' : 'en';
-
-        metaSource.textContent = `${t('dataSource')}: ${t('sourceText')}`;
-        metaMethod.textContent = `${t('method')}: ${t('methodText')}`;
-
-        renderFilterOptions();
-        renderAuthStatus();
-        initializeChat();
-      }
-
-      function updateMetaStats() {
-        const total = allSchoolsCache?.length ?? 0;
-        const now = new Date();
-        metaTotal.textContent = `${t('totalSchools')}: ${total}`;
-        metaUpdated.textContent = `${t('updatedAt')}: ${now.toLocaleString(currentLang === 'zh' ? 'zh-HK' : 'en-US')}`;
-      }
-
-      function typeLabel(type) {
-        if (currentLang === 'zh') {
-          if (type === 'PUBLIC') return '本地';
-          if (type === 'PRIVATE') return '私立';
-          if (type === 'INTERNATIONAL') return '國際';
-        }
-        return type;
-      }
-
-      function renderFilterOptions() {
-        const prevArea = filterState.area;
-        const prevType = filterState.type;
-
-        const areaKeys = [...new Set(allSchoolsCache.map((s) => s.area?.name).filter(Boolean))].sort();
-
-        filterArea.innerHTML = [
-          `<option value="">${t('allAreas')}</option>`,
-          ...areaKeys.map((key) => `<option value="${key}">${formatArea(key)}</option>`),
-        ].join('');
-
-        filterType.innerHTML = [
-          `<option value="">${t('allTypes')}</option>`,
-          '<option value="PUBLIC">' + typeLabel('PUBLIC') + '</option>',
-          '<option value="PRIVATE">' + typeLabel('PRIVATE') + '</option>',
-          '<option value="INTERNATIONAL">' + typeLabel('INTERNATIONAL') + '</option>',
-        ].join('');
-
-        filterArea.value = prevArea;
-        filterType.value = prevType;
-        filterScore.value = filterState.minScore;
-      }
-
-      function applyFilters(schools, forcedArea) {
-        const areaKey = forcedArea || filterState.area;
-        const type = filterState.type;
-        const minScore = filterState.minScore === '' ? null : Number(filterState.minScore);
-
-        return (schools || []).filter((school) => {
-          if (areaKey && school.area?.name !== areaKey) return false;
-          if (type && school.type !== type) return false;
-          if (minScore !== null) {
-            if (school.avgRating === null || school.avgRating === undefined) return false;
-            if (Number(school.avgRating) < minScore) return false;
-          }
-          return true;
-        });
-      }
-
-      function groupTopByArea(schools, limit) {
-        const grouped = new Map();
-
-        for (const school of schools) {
-          const key = school.area?.name || 'other';
-          if (!grouped.has(key)) grouped.set(key, []);
-          grouped.get(key).push(school);
+        function schoolHref(school) {
+          return `/?school=${encodeURIComponent(school.id)}`;
         }
 
-        return [...grouped.entries()].map(([area, rows]) => {
-          const ranked = [...rows].sort((a, b) => {
-            const aWeighted = a.weightedScore ?? a.avgRating ?? -1;
-            const bWeighted = b.weightedScore ?? b.avgRating ?? -1;
-            if (bWeighted !== aWeighted) return bWeighted - aWeighted;
-            if ((b.reviewCount ?? 0) !== (a.reviewCount ?? 0)) return (b.reviewCount ?? 0) - (a.reviewCount ?? 0);
-            return String(a.name || '').localeCompare(String(b.name || ''));
+        function ratingCell(value, count) {
+          if (typeof value !== 'number') return html`<span class="count">${t('noRating')}</span>`;
+          return html`${formatRating(value)} ★${count ? html` <span class="count">(${count})</span>` : ''}`;
+        }
+
+        function schoolTable(schools, { showDistrict = false } = {}) {
+          if (!schools.length) return html`<p class="empty">${t('noSchools')}</p>`;
+
+          const rows = schools.map((school) => {
+            const secondary = schoolSecondaryName(school);
+            const href = schoolHref(school);
+            return html`
+              <tr class="school-row" data-href="${href}">
+                <td class="col-rank">${school.areaRank ? `#${school.areaRank}` : '–'}</td>
+                <td>
+                  <a class="school-link" href="${href}" data-nav>${schoolPrimaryName(school)}</a>
+                  ${secondary ? html`<div class="subtext">${secondary}</div>` : ''}
+                  <div class="tags">
+                    <span class="tag tag-${school.type}">${typeLabel(school.type)}</span>
+                    ${showDistrict ? html`<span class="tag">${formatArea(school.area?.name)}</span>` : ''}
+                  </div>
+                  <div class="mobile-stats">
+                    ${t('parents')}: ${ratingCell(school.avgRating, school.reviewCount)} ·
+                    ${t('google')}: ${ratingCell(school.googleRating, school.googleReviewCount)}
+                  </div>
+                </td>
+                <td class="col-num score">${typeof school.weightedScore === 'number' ? school.weightedScore.toFixed(2) : '–'}</td>
+                <td class="col-num col-hide-mobile">${ratingCell(school.avgRating, school.reviewCount)}</td>
+                <td class="col-num col-hide-mobile">${ratingCell(school.googleRating, school.googleReviewCount)}</td>
+              </tr>`;
           });
 
-          return { area, schools: ranked.slice(0, limit) };
-        });
-      }
-
-        function googleScoreValue(school) {
-          const value = school.googleReviewScore ?? school.googleScore ?? null;
-          return value === null || value === undefined || value === '' ? '-' : value;
-        }
-
-      async function fetchJson(url) {
-        const response = await fetch(url, { credentials: 'include' });
-        if (!response.ok) throw new Error(`Request failed (${response.status})`);
-        return response.json();
-      }
-
-      function buildDuplicateCampusMap(groups) {
-        const allSchools = groups.flatMap((g) => g.schools || []);
-        const buckets = new Map();
-
-        for (const school of allSchools) {
-          const base = normalizeBaseName(school.chineseName || school.name);
-          if (!base) continue;
-          if (!buckets.has(base)) buckets.set(base, []);
-          buckets.get(base).push(school);
-        }
-
-        const campusById = new Map();
-        for (const list of buckets.values()) {
-          if (list.length < 2) continue;
-          for (const school of list) {
-            const campusFromName =
-              extractCampusFromName(school.chineseName || '') ||
-              extractCampusFromName(school.name || '');
-            campusById.set(school.id, campusFromName || school.district || t('na'));
-          }
-        }
-
-        return campusById;
-      }
-
-      function renderHome(groups) {
-        cachedGroups = groups;
-        homeView.classList.remove('hidden');
-        areaView.classList.add('hidden');
-        profileView.classList.add('hidden');
-        areaContainer.innerHTML = '';
-
-        const campusById = buildDuplicateCampusMap(groups);
-
-        for (const group of groups) {
-          const section = document.createElement('section');
-          section.className = 'area-section';
-
-          const visibleSchools = collapseSimilarSchools(group.schools || []);
-
-          const rows = visibleSchools
-            .map((school) => {
-              const campus = campusById.get(school.id) || '';
-              return `
-                <tr class="school-row" data-school-id="${school.id}">
-                  <td>
-                    <div><strong>${schoolPrimaryName(school)}</strong></div>
-                    <div class="subtext">${schoolSecondaryName(school)}</div>
-                  </td>
-                  <td>${campus || '-'}</td>
-                  <td>${school.type}</td>
-                   <td>${googleScoreValue(school)}</td>
-                  <td>${school.avgRating ?? t('na')}</td>
-                  <td>${school.reviewCount ?? 0}</td>
-                </tr>
-              `;
-            })
-            .join('');
-
-          section.innerHTML = `
-            <h3>
-              ${formatArea(group.area)}
-              <button data-area-key="${group.area}" style="margin-left:8px">${t('viewAll')}</button>
-            </h3>
-            ${rows
-              ? `
+          return html`
+            <div class="table-wrap">
               <table class="area-table">
                 <thead>
                   <tr>
+                    <th class="col-rank">${t('rank')}</th>
                     <th>${t('school')}</th>
-                    <th>${t('campus')}</th>
-                    <th>${t('type')}</th>
-                    <th>${t('googleScore')}</th>
-                    <th>${t('avg')}</th>
-                    <th>${t('reviews')}</th>
+                    <th class="col-num">${t('score')}</th>
+                    <th class="col-num col-hide-mobile">${t('parents')}</th>
+                    <th class="col-num col-hide-mobile">${t('google')}</th>
                   </tr>
                 </thead>
                 <tbody>${rows}</tbody>
               </table>
-              `
-              : `<p>${t('noSchools')}</p>`}
-          `;
-
-          areaContainer.appendChild(section);
+            </div>`;
         }
 
-        statusEl.textContent = t('showingTop5');
-      }
+        function showView(name) {
+          state.view = name;
+          for (const [key, view] of Object.entries(views)) view.classList.toggle('hidden', key !== name);
+          mountAd(name);
+        }
 
-      function renderAreaDetail(areaKey, schools) {
-        cachedAreaKey = areaKey;
-        const rankedSchools = [...(schools || [])].sort((a, b) => {
-          const aWeighted = a.weightedScore ?? a.avgRating ?? -1;
-          const bWeighted = b.weightedScore ?? b.avgRating ?? -1;
-          if (bWeighted !== aWeighted) return bWeighted - aWeighted;
-          if ((b.reviewCount ?? 0) !== (a.reviewCount ?? 0)) return (b.reviewCount ?? 0) - (a.reviewCount ?? 0);
-          return String(a.name || '').localeCompare(String(b.name || ''));
-        });
+        function setDocumentTitle(prefix) {
+          document.title = prefix ? `${prefix} | ${t('siteTitle')}` : t('siteTitle');
+        }
 
-        cachedAreaSchools = rankedSchools;
-        homeView.classList.add('hidden');
-        areaView.classList.remove('hidden');
-        profileView.classList.add('hidden');
+        function renderMeta() {
+          const schools = state.schools || [];
+          el.metaSummary.textContent = t('aboutRanking');
+          el.metaSource.textContent = `${t('dataSource')}: ${t('sourceText')}`;
+          el.metaTotal.textContent = `${t('totalSchools')}: ${schools.length}`;
+          el.metaMethod.textContent = `${t('method')}: ${t('methodText')}`;
+          el.metaTypes.textContent = `${t('typeNote')}: ${t('typeNoteText')}`;
 
-        areaTitle.textContent = `${formatArea(areaKey)} (${rankedSchools.length})`;
+          const synced = schools
+            .map((school) => school.googleUpdatedAt)
+            .filter(Boolean)
+            .sort()
+            .pop();
+          el.metaUpdated.textContent = synced ? `${t('googleSynced')}: ${formatDate(synced)}` : '';
+          el.metaUpdated.classList.toggle('hidden', !synced);
+        }
 
-        const visibleSchools = collapseSimilarSchools(rankedSchools);
-        const groups = [{ area: areaKey, schools: visibleSchools }];
-        const campusById = buildDuplicateCampusMap(groups);
+        function renderAreaOptions() {
+          const areas = [...new Set((state.schools || []).map((school) => school.area?.name).filter(Boolean))].sort(
+            (a, b) => areaOrder(a) - areaOrder(b) || a.localeCompare(b),
+          );
+          const current = new URLSearchParams(window.location.search).get('area') || '';
+          setHtml(el.filterArea, [
+            html`<option value="">${t('allAreas')}</option>`,
+            ...areas.map((area) => html`<option value="${area}">${formatArea(area)}</option>`),
+          ]);
+          el.filterArea.value = areas.includes(current) ? current : '';
+        }
 
-        areaTitle.textContent = `${formatArea(areaKey)} (${visibleSchools.length})`;
+        function renderTypeOptions() {
+          setHtml(el.filterType, [
+            html`<option value="">${t('allTypes')}</option>`,
+            ...['PUBLIC', 'PRIVATE', 'INTERNATIONAL'].map((type) => html`<option value="${type}">${typeLabel(type)}</option>`),
+          ]);
+          el.filterType.value = state.filters.type;
+        }
 
-        areaTableBody.innerHTML = visibleSchools
-          .map((school) => {
-            const campus = campusById.get(school.id) || '';
-            return `
-              <tr class="school-row" data-school-id="${school.id}">
-                <td>
-                  <div><strong>${schoolPrimaryName(school)}</strong></div>
-                  <div class="subtext">${schoolSecondaryName(school)}</div>
-                </td>
-                <td>${campus || '-'}</td>
-                <td>${school.type}</td>
-                 <td>${googleScoreValue(school)}</td>
-                <td>${school.avgRating ?? t('na')}</td>
-                <td>${school.reviewCount ?? 0}</td>
-              </tr>
-            `;
-          })
-          .join('');
+        function applyStaticTranslations() {
+          document.documentElement.lang = state.lang === 'zh' ? 'zh-HK' : 'en';
+          el.heroTitle.textContent = t('heroTitle');
+          el.langToggle.textContent = state.lang === 'zh' ? 'EN' : '中文';
+          el.langToggle.lang = state.lang === 'zh' ? 'en' : 'zh-HK';
+          for (const node of document.querySelectorAll('[data-i18n]')) node.textContent = t(node.dataset.i18n);
+          for (const node of document.querySelectorAll('[data-i18n-placeholder]')) node.placeholder = t(node.dataset.i18nPlaceholder);
+          for (const node of document.querySelectorAll('[data-i18n-aria-label]')) node.setAttribute('aria-label', t(node.dataset.i18nAriaLabel));
+          renderTypeOptions();
+          renderAreaOptions();
+          renderMeta();
+          renderAccount();
+          renderChatQuickActions();
+        }
 
-        statusEl.textContent = t('showingAreaAll');
-      }
+        async function showHome() {
+          setStatus(t('loadingSchools'));
+          const schools = await ensureSchools();
+          const grouped = groupByArea(applyFilters(schools));
 
-      function renderProfile(school) {
-        cachedProfile = school;
-        homeView.classList.add('hidden');
-        areaView.classList.add('hidden');
-        profileView.classList.remove('hidden');
+          const sections = [...grouped.entries()].map(
+            ([area, list]) => html`
+              <section class="area-section">
+                <div class="area-head">
+                  <h3>${formatArea(area)}</h3>
+                  <a class="button btn-secondary" href="/?area=${encodeURIComponent(area)}" data-nav>${t('viewAll', { count: list.length })}</a>
+                </div>
+                ${schoolTable(list.slice(0, TOP_PER_AREA))}
+              </section>`,
+          );
 
-        const reviewsCount = school.reviewCount ?? (school.reviews ? school.reviews.length : 0);
+          setHtml(el.areaContainer, sections.length ? sections : html`<p class="empty">${t('noSchools')}</p>`);
+          el.searchInput.value = '';
+          el.filterArea.value = '';
+          setDocumentTitle('');
+          showView('home');
+          setStatus(t('showingTop5'));
+        }
 
-        profileCard.innerHTML = `
-          <h2>${schoolPrimaryName(school)}</h2>
-          <p><strong>${t('chineseName')}:</strong> ${school.chineseName || t('na')}</p>
-          <p><strong>${t('englishName')}:</strong> ${school.name || t('na')}</p>
-          <p><strong>${t('district')}:</strong> ${school.district || t('na')}</p>
-          <p><strong>${t('area')}:</strong> ${formatArea(school.area?.name || school.area)}</p>
-          <p><strong>${t('address')}:</strong> ${school.address || t('na')}</p>
-          <p><strong>${t('type')}:</strong> ${school.type}</p>
-           <p><strong>${t('googleScore')}:</strong> ${googleScoreValue(school)}</p>
-          <p><strong>${t('googleAddress')}:</strong> ${school.googleFormattedAddress || t('na')}</p>
-          <p><strong>${t('avg')}:</strong> ${school.avgRating ?? t('na')}</p>
-          <p><strong>${t('reviews')}:</strong> ${reviewsCount}</p>
-          <p><em>${t('commentsHidden')}</em></p>
-          <div class="review-form">
-            <h3>${t('reviewTitle')}</h3>
-            <label>${t('reviewRating')}</label>
-            <select id="profileReviewRating">
-              <option value="5">5</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1">1</option>
-            </select>
-            <label>${t('reviewComment')}</label>
-            <textarea id="profileReviewComment" rows="3" maxlength="500"></textarea>
-            <button id="profileReviewSubmit">${t('reviewSubmit')}</button>
-          </div>
-        `;
+        async function showArea(areaKey) {
+          setStatus(t('loadingSchools'));
+          const schools = await ensureSchools();
+          const list = applyFilters(schools.filter((school) => school.area?.name === areaKey));
 
-        const submitBtn = document.getElementById('profileReviewSubmit');
-        if (submitBtn) {
-          submitBtn.addEventListener('click', async () => {
-            await submitProfileReview(school.id);
+          el.areaTitle.textContent = t('areaTitle', { area: formatArea(areaKey), count: list.length });
+          setHtml(el.areaTable, schoolTable(list));
+          el.searchInput.value = '';
+          el.filterArea.value = areaKey;
+          setDocumentTitle(t('areaPageTitle', { area: formatArea(areaKey) }));
+          showView('area');
+          setStatus(t('showingArea'));
+        }
+
+        async function showSearch(query) {
+          await ensureSchools();
+          const matches = applyFilters(searchSchools(query));
+          const shown = matches.slice(0, MAX_SEARCH_RESULTS);
+
+          // Typing a district name probably means "show me that district".
+          const district = detectDistrict(query.toLowerCase());
+          const districtLink = district
+            ? html`<p><a href="/?area=${encodeURIComponent(district)}" data-nav>${t('viewDistrict', { area: formatArea(district) })}</a></p>`
+            : '';
+
+          el.searchTitle.textContent = t('searchTitle', { query, count: matches.length });
+          setHtml(
+            el.searchResults,
+            html`${districtLink}${
+              matches.length
+                ? html`${schoolTable(shown, { showDistrict: true })}${
+                    matches.length > shown.length ? html`<p class="subtext">${t('searchTooMany', { count: shown.length })}</p>` : ''
+                  }`
+                : html`<p class="empty">${t('searchNone', { query })}</p>`
+            }`,
+          );
+          // Don't overwrite what the user is still typing.
+          if (document.activeElement !== el.searchInput && el.searchInput.value.trim() !== query) {
+            el.searchInput.value = query;
+          }
+          el.filterArea.value = '';
+          setDocumentTitle(t('searchTitle', { query, count: matches.length }));
+          showView('search');
+          setStatus('');
+        }
+
+        function reviewSection(school) {
+          if (!state.user) {
+            if (!state.config.googleLoginEnabled) {
+              return html`<div class="review-form"><p class="subtext">${t('reviewUnavailable')}</p></div>`;
+            }
+            return html`
+              <div class="review-form">
+                <h3>${t('reviewTitle')}</h3>
+                <p>${t('reviewNeedLogin')}</p>
+                <div><button type="button" data-action="login">${t('loginWithGoogle')}</button></div>
+              </div>`;
+          }
+
+          if (!state.user.canReview) {
+            return html`
+              <div class="review-form">
+                <h3>${t('reviewTitle')}</h3>
+                <p>${t('reviewNeedVerify')}</p>
+              </div>`;
+          }
+
+          const mine = school.myReview;
+          const stars = [5, 4, 3, 2, 1].map(
+            (n) => html`
+              <input type="radio" id="star${n}" name="rating" value="${n}" ${mine && mine.rating === n ? html`checked` : ''} />
+              <label for="star${n}" title="${t('stars', { n })}" aria-label="${t('stars', { n })}">★</label>`,
+          );
+
+          return html`
+            <form class="review-form" id="reviewForm" novalidate>
+              <h3>${mine ? t('reviewTitleExisting') : t('reviewTitle')}</h3>
+              ${mine ? html`<p class="subtext">${t('reviewExistingNote', { date: formatDate(mine.createdAt) })}</p>` : ''}
+              <fieldset class="star-fieldset">
+                <legend>${t('reviewRating')}</legend>
+                <div class="star-input">${stars}</div>
+              </fieldset>
+              <label for="reviewComment">${t('reviewComment')}</label>
+              <textarea id="reviewComment" name="comment" rows="3" maxlength="1000">${mine?.comment || ''}</textarea>
+              <p class="subtext">${t('commentsHidden')}</p>
+              <div id="reviewCaptcha"></div>
+              <div><button type="submit">${mine ? t('reviewUpdate') : t('reviewSubmit')}</button></div>
+              <div class="form-message" role="status" aria-live="polite"></div>
+            </form>`;
+        }
+
+        function mapsUrl(school) {
+          const query = encodeURIComponent(school.googleFormattedAddress || school.chineseName || school.name);
+          const placeId = school.googlePlaceId ? `&query_place_id=${encodeURIComponent(school.googlePlaceId)}` : '';
+          return `https://www.google.com/maps/search/?api=1&query=${query}${placeId}`;
+        }
+
+        async function showProfile(schoolId, { message } = {}) {
+          setStatus(t('loadingProfile'));
+          let school;
+          try {
+            school = await fetchJson(`/api/kindergartens/${encodeURIComponent(schoolId)}`);
+          } catch (error) {
+            if (error.status !== 404) throw error;
+            setHtml(el.profileToolbar, html`<a class="button btn-secondary" href="/" data-nav>${t('backHome')}</a>`);
+            setHtml(el.profileCard, html`<p>${t('notFound')}</p>`);
+            setDocumentTitle(t('notFound'));
+            showView('profile');
+            setStatus('');
+            return;
+          }
+
+          const areaKey = school.area?.name || '';
+          const area = formatArea(areaKey);
+          const secondary = schoolSecondaryName(school);
+          const hasScore = typeof school.weightedScore === 'number';
+
+          setHtml(
+            el.profileToolbar,
+            html`
+              <a class="button btn-secondary" href="/?area=${encodeURIComponent(areaKey)}" data-nav>${t('backToArea', { area })}</a>
+              <a class="button btn-secondary" href="/" data-nav>${t('backHome')}</a>`,
+          );
+
+          setHtml(
+            el.profileCard,
+            html`
+              <h2>${schoolPrimaryName(school)}</h2>
+              ${secondary ? html`<p class="subtext">${secondary}</p>` : ''}
+              <div class="tags">
+                <span class="tag tag-${school.type}">${typeLabel(school.type)}</span>
+                <span class="tag">${area}</span>
+              </div>
+
+              <div class="score-cards">
+                <div class="score-card">
+                  <div class="label">${t('score')}</div>
+                  <div class="value">${hasScore ? school.weightedScore.toFixed(2) : '–'}</div>
+                  <div class="hint">${school.areaRank ? t('rankedIn', { area, rank: school.areaRank, total: school.areaTotal }) : t('unranked')}</div>
+                </div>
+                <div class="score-card">
+                  <div class="label">${t('parents')}</div>
+                  <div class="value">${school.avgRating !== null ? `${formatRating(school.avgRating)} ★` : '–'}</div>
+                  <div class="hint">${school.reviewCount ? t('parentHint', { count: school.reviewCount }) : t('parentHintNone')}</div>
+                </div>
+                <div class="score-card">
+                  <div class="label">${t('google')}</div>
+                  <div class="value">${school.googleRating !== null ? `${formatRating(school.googleRating)} ★` : '–'}</div>
+                  <div class="hint">${school.googleRating !== null ? t('googleHint', { count: school.googleReviewCount ?? '?' }) : t('googleHintNone')}</div>
+                </div>
+              </div>
+
+              <dl class="details">
+                <dt>${t('chineseName')}</dt><dd>${school.chineseName || '–'}</dd>
+                <dt>${t('englishName')}</dt><dd>${school.name || '–'}</dd>
+                <dt>${t('district')}</dt><dd>${area}</dd>
+                <dt>${t('type')}</dt><dd>${typeLabel(school.type)}</dd>
+                ${
+                  school.googleFormattedAddress
+                    ? html`<dt>${t('address')}</dt>
+                        <dd>${school.googleFormattedAddress} · <a href="${mapsUrl(school)}" target="_blank" rel="noopener">${t('openMap')}</a></dd>`
+                    : ''
+                }
+              </dl>
+
+              ${reviewSection(school)}`,
+          );
+
+          const form = $('reviewForm');
+          if (form) {
+            form.addEventListener('submit', (event) => {
+              event.preventDefault();
+              submitReview(form, school);
+            });
+            mountCaptcha($('reviewCaptcha'), form.querySelector('.form-message'));
+            if (message) setMessage(form.querySelector('.form-message'), message, 'ok');
+          }
+
+          el.searchInput.value = '';
+          el.filterArea.value = '';
+          setDocumentTitle(schoolPrimaryName(school));
+          showView('profile');
+          setStatus('');
+        }
+
+        async function submitReview(form, school) {
+          const messageEl = form.querySelector('.form-message');
+          const rating = Number(form.querySelector('input[name="rating"]:checked')?.value || 0);
+          if (!rating) {
+            setMessage(messageEl, t('reviewPickRating'), 'error');
+            return;
+          }
+
+          const captchaToken = captchaTokenOrNull(messageEl);
+          if (!captchaToken) return;
+
+          const button = form.querySelector('button[type="submit"]');
+          button.disabled = true;
+          setMessage(messageEl, t('submitting'));
+
+          try {
+            const result = await postJson('/api/reviews', {
+              kindergartenId: school.id,
+              rating,
+              comment: form.elements.comment.value.trim(),
+              captchaToken,
+            });
+
+            if (!result.ok) {
+              setMessage(messageEl, errorMessage(result), 'error');
+              resetCaptcha();
+              if (result.status === 401) await refreshUser();
+              return;
+            }
+
+            await ensureSchools(true);
+            await showProfile(school.id, { message: result.data.updated ? t('reviewUpdated') : t('reviewSuccess') });
+          } catch {
+            setMessage(messageEl, t('failed'), 'error');
+          } finally {
+            button.disabled = false;
+          }
+        }
+
+        // ---------- routing ----------
+
+        async function route() {
+          const params = new URLSearchParams(window.location.search);
+          const schoolId = params.get('school');
+          const query = (params.get('q') || '').trim();
+          const area = params.get('area');
+
+          try {
+            if (schoolId) await showProfile(schoolId);
+            else if (query) await showSearch(query);
+            else if (area) await showArea(area);
+            else await showHome();
+          } catch (error) {
+            console.error(error);
+            setStatus(t('failed'), 'error');
+          }
+        }
+
+        async function navigate(url, { replace = false, scroll = true } = {}) {
+          const target = new URL(url, window.location.origin);
+          const path = target.pathname + target.search;
+          if (replace) window.history.replaceState(null, '', path);
+          else window.history.pushState(null, '', path);
+          await route();
+          if (scroll) window.scrollTo(0, 0);
+        }
+
+        // ---------- account & email verification ----------
+
+        async function refreshUser() {
+          try {
+            state.user = await fetchJson('/api/auth/me');
+          } catch {
+            state.user = null;
+          }
+          renderAccount();
+        }
+
+        function renderAccount() {
+          const user = state.user;
+          const loginEnabled = state.config.googleLoginEnabled;
+
+          el.accountPanel.classList.toggle('hidden', !user && !loginEnabled);
+          el.authStatusText.textContent = user ? t('authLoggedIn', { email: user.email }) : t('authGuest');
+          el.googleLoginBtn.classList.toggle('hidden', Boolean(user) || !loginEnabled);
+          el.logoutBtn.classList.toggle('hidden', !user);
+
+          const needsVerification = Boolean(user) && !user.canReview;
+          const wasHidden = el.verifyPanel.classList.contains('hidden');
+          el.verifyPanel.classList.toggle('hidden', !needsVerification);
+          if (needsVerification && wasHidden) mountCaptcha(el.verifyCaptcha, el.verifyMessage);
+        }
+
+        function startLogin() {
+          const returnTo = window.location.pathname + window.location.search;
+          window.location.href = `/api/auth/google?returnTo=${encodeURIComponent(returnTo)}`;
+        }
+
+        async function logout() {
+          await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
+          state.user = null;
+          renderAccount();
+          await route();
+        }
+
+        async function sendVerificationCode() {
+          const captchaToken = captchaTokenOrNull(el.verifyMessage);
+          if (!captchaToken) return;
+
+          el.sendCodeBtn.disabled = true;
+          try {
+            const result = await postJson('/api/auth/email/send-code', { captchaToken });
+            resetCaptcha();
+            if (!result.ok) {
+              setMessage(el.verifyMessage, errorMessage(result), 'error');
+              return;
+            }
+            if (result.data.emailVerified) {
+              await afterVerified();
+              return;
+            }
+            setMessage(
+              el.verifyMessage,
+              result.data.devCode ? t('verifyCodeSentDev', { code: result.data.devCode }) : t('verifyCodeSent'),
+              'ok',
+            );
+            el.verifyCodeInput.focus();
+          } catch {
+            setMessage(el.verifyMessage, t('failed'), 'error');
+          } finally {
+            el.sendCodeBtn.disabled = false;
+          }
+        }
+
+        async function verifyEmailCode() {
+          const code = el.verifyCodeInput.value.trim();
+          if (!/^\d{6}$/.test(code)) {
+            setMessage(el.verifyMessage, t('verifyCodeInvalid'), 'error');
+            return;
+          }
+
+          const captchaToken = captchaTokenOrNull(el.verifyMessage);
+          if (!captchaToken) return;
+
+          el.verifyCodeBtn.disabled = true;
+          try {
+            const result = await postJson('/api/auth/email/verify', { code, captchaToken });
+            resetCaptcha();
+            if (!result.ok) {
+              setMessage(el.verifyMessage, errorMessage(result), 'error');
+              return;
+            }
+            el.verifyCodeInput.value = '';
+            await afterVerified();
+          } catch {
+            setMessage(el.verifyMessage, t('failed'), 'error');
+          } finally {
+            el.verifyCodeBtn.disabled = false;
+          }
+        }
+
+        async function afterVerified() {
+          await refreshUser();
+          setStatus(t('verifyCodeSuccess'));
+          if (state.view === 'profile') await route();
+        }
+
+        // ---------- CAPTCHA ----------
+
+        const captcha = { loading: null, widgetId: null, token: '' };
+
+        function captchaApi() {
+          return state.config.provider === 'turnstile' ? window.turnstile : window.grecaptcha;
+        }
+
+        function loadCaptchaProvider() {
+          if (captcha.loading) return captcha.loading;
+          captcha.loading = new Promise((resolve, reject) => {
+            window.__onCaptchaLoad = () => resolve();
+            const script = document.createElement('script');
+            script.async = true;
+            script.defer = true;
+            script.src =
+              state.config.provider === 'turnstile'
+                ? 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__onCaptchaLoad'
+                : `https://www.google.com/recaptcha/api.js?render=explicit&onload=__onCaptchaLoad&hl=${state.lang === 'zh' ? 'zh-HK' : 'en'}`;
+            script.onerror = () => {
+              captcha.loading = null;
+              reject(new Error('captcha-load-failed'));
+            };
+            document.head.appendChild(script);
+          });
+          return captcha.loading;
+        }
+
+        /** Renders a fresh CAPTCHA widget into `container` (no-op when CAPTCHA isn't configured). */
+        async function mountCaptcha(container, messageEl) {
+          captcha.token = '';
+          captcha.widgetId = null;
+          if (!state.config.siteKey || !container) return;
+
+          try {
+            await loadCaptchaProvider();
+          } catch {
+            setMessage(messageEl, t('captchaLoadFailed'), 'error');
+            return;
+          }
+          if (!container.isConnected) return;
+
+          container.innerHTML = '';
+          const host = document.createElement('div');
+          container.appendChild(host);
+          captcha.widgetId = captchaApi().render(host, {
+            sitekey: state.config.siteKey,
+            callback: (token) => {
+              captcha.token = token;
+            },
+            'expired-callback': () => {
+              captcha.token = '';
+            },
           });
         }
 
-        statusEl.textContent = `${t('viewingProfile')}${schoolPrimaryName(school)}`;
-      }
-
-      async function submitProfileReview(kindergartenId) {
-        if (!authUser) {
-          setVerifyMessage(t('reviewNeedLogin'));
-          return;
+        function captchaTokenOrNull(messageEl) {
+          // Without a site key the server only accepts requests outside production (local development).
+          if (!state.config.siteKey) return 'dev-bypass';
+          if (!captcha.token) {
+            setMessage(messageEl, t('captchaMissing'), 'error');
+            return null;
+          }
+          return captcha.token;
         }
 
-        // skip email-verification gate when backend does not require it
-        if (captchaConfig?.requireEmailVerified !== false && !authUser.emailVerifiedAt) {
-          setVerifyMessage(t('reviewNeedVerify'));
-          return;
+        function resetCaptcha() {
+          captcha.token = '';
+          if (captcha.widgetId === null) return;
+          try {
+            captchaApi().reset(captcha.widgetId);
+          } catch {
+            // Widget already removed from the page.
+          }
         }
 
-        const token = getCaptchaTokenOrFail();
-        if (!token) return;
+        // ---------- ads ----------
 
-        const ratingEl = document.getElementById('profileReviewRating');
-        const commentEl = document.getElementById('profileReviewComment');
-        const rating = Number(ratingEl?.value || 0);
-        const comment = String(commentEl?.value || '').trim();
+        const mountedAds = new Set();
 
-        const response = await fetch('/api/reviews', {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ kindergartenId, rating, comment, captchaToken: token }),
+        function isAdsConfigured() {
+          return (
+            /^ca-pub-\d{16}$/.test(adConfig.publisherId) &&
+            Object.values(adConfig.slots).every((slot) => /^\d+$/.test(slot))
+          );
+        }
+
+        function mountAd(viewName) {
+          if (!isAdsConfigured() || mountedAds.has(viewName) || !adConfig.slots[viewName]) return;
+          const slot = document.querySelector(`[data-ad-view="${viewName}"]`);
+          if (!slot) return;
+          mountedAds.add(viewName);
+
+          if (!document.getElementById('adsbygoogle-script')) {
+            const script = document.createElement('script');
+            script.id = 'adsbygoogle-script';
+            script.async = true;
+            script.crossOrigin = 'anonymous';
+            script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adConfig.publisherId}`;
+            document.head.appendChild(script);
+          }
+
+          slot.classList.remove('hidden');
+          setHtml(
+            slot.querySelector('.ad-box'),
+            html`<ins class="adsbygoogle" style="display:block" data-ad-client="${adConfig.publisherId}"
+              data-ad-slot="${adConfig.slots[viewName]}" data-ad-format="auto" data-full-width-responsive="true"></ins>`,
+          );
+          try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+          } catch {
+            // Ad blocked or failed to load; the page works without it.
+          }
+        }
+
+        // ---------- chat assistant ----------
+
+        const DISTRICT_TERMS = Object.entries(DISTRICTS)
+          .flatMap(([key, district]) => {
+            const zhShort = district.zh.endsWith('區') && district.zh.length > 2 ? [district.zh.slice(0, -1)] : [];
+            return [key, district.zh, district.en.toLowerCase(), ...zhShort, ...district.aliases].map((term) => ({ key, term }));
+          })
+          .sort((a, b) => b.term.length - a.term.length);
+
+        function detectDistrict(text) {
+          for (const { key, term } of DISTRICT_TERMS) {
+            if (/^[\x20-\x7e]+$/.test(term)) {
+              const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              if (new RegExp(`(^|[^a-z])${escaped}($|[^a-z])`).test(text)) return key;
+            } else if (text.includes(term)) {
+              return key;
+            }
+          }
+          return '';
+        }
+
+        function appendChatMessage(role, text) {
+          const bubble = document.createElement('div');
+          bubble.className = `chat-bubble ${role === 'user' ? 'chat-user' : 'chat-bot'}`;
+          bubble.textContent = text;
+          el.chatMessages.appendChild(bubble);
+          el.chatMessages.scrollTop = el.chatMessages.scrollHeight;
+        }
+
+        function renderChatQuickActions() {
+          el.chatQuick.innerHTML = '';
+          const quick = [
+            [t('chatQuickTop5'), 'top 5'],
+            [t('chatQuickMethod'), 'method'],
+            [t('chatQuickReview'), 'review'],
+            [t('chatQuickArea'), 'tuenmun'],
+          ];
+          for (const [label, intent] of quick) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = label;
+            button.addEventListener('click', () => {
+              appendChatMessage('user', label);
+              handleChatIntent(intent);
+            });
+            el.chatQuick.appendChild(button);
+          }
+        }
+
+        async function handleChatIntent(rawText) {
+          const text = String(rawText || '').toLowerCase().trim();
+          const mentionsSchool = /kindergarten|nursery|school|幼稚園|幼兒|學校/.test(text);
+
+          // On phones the open chat would cover the page it just navigated to.
+          const closeOnSmallScreens = () => {
+            if (window.matchMedia('(max-width: 640px)').matches) toggleChat(false);
+          };
+
+          const district = mentionsSchool ? '' : detectDistrict(text);
+          if (district) {
+            appendChatMessage('bot', t('chatNavigating', { area: formatArea(district) }));
+            await navigate(`/?area=${encodeURIComponent(district)}`);
+            closeOnSmallScreens();
+            return;
+          }
+
+          const intents = [
+            [/top ?5|前 ?5|排行/, 'chatTop5'],
+            [/method|how .*(rank|score|calculat)|計算|排名方法|點計|如何排名/, null],
+            [/log ?in|sign ?in|登入|google/, 'chatLogin'],
+            [/verif|驗證|電郵|email/, 'chatVerify'],
+            [/review|rate|rating|評分|評論/, 'chatReview'],
+            [/area|district|地區/, 'chatAreas'],
+          ];
+          for (const [pattern, key] of intents) {
+            if (pattern.test(text)) {
+              appendChatMessage('bot', key ? t(key) : t('methodText'));
+              return;
+            }
+          }
+
+          await ensureSchools().catch(() => []);
+          const matches = searchSchools(rawText);
+          if (matches.length) {
+            appendChatMessage('bot', t('chatSearching', { count: matches.length }));
+            await navigate(`/?q=${encodeURIComponent(String(rawText).trim())}`);
+            closeOnSmallScreens();
+            return;
+          }
+
+          appendChatMessage('bot', t('chatUnknown'));
+        }
+
+        function toggleChat(open) {
+          el.chatPanel.classList.toggle('hidden', !open);
+          el.chatToggle.setAttribute('aria-expanded', String(open));
+          if (open && !state.chatStarted) {
+            state.chatStarted = true;
+            appendChatMessage('bot', t('chatWelcome'));
+            appendChatMessage('bot', t('chatHint'));
+          }
+          if (open) el.chatInput.focus();
+        }
+
+        // ---------- events ----------
+
+        document.addEventListener('click', (event) => {
+          const target = event.target instanceof Element ? event.target : null;
+          if (!target || event.defaultPrevented) return;
+
+          if (target.closest('[data-action="login"]')) {
+            startLogin();
+            return;
+          }
+
+          const modified = event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+          const link = target.closest('a[data-nav]');
+          if (link) {
+            if (modified) return;
+            event.preventDefault();
+            navigate(link.getAttribute('href'));
+            return;
+          }
+
+          // Clicking anywhere on a school row opens the school.
+          const row = target.closest('tr[data-href]');
+          if (row && !modified && !target.closest('a, button')) {
+            navigate(row.dataset.href);
+          }
         });
 
-        const json = await response.json().catch(() => ({}));
-        if (!response.ok) {
-          setVerifyMessage(json.error || t('failed'));
-          resetCaptchaWidget();
-          return;
-        }
+        window.addEventListener('popstate', () => route());
 
-        setVerifyMessage(t('reviewSuccess'));
-        if (commentEl) commentEl.value = '';
-        resetCaptchaWidget();
-        await loadProfile(kindergartenId);
-      }
+        el.langToggle.addEventListener('click', () => {
+          state.lang = state.lang === 'zh' ? 'en' : 'zh';
+          storage.set('lang', state.lang);
+          applyStaticTranslations();
+          route();
+        });
 
-      async function loadHome() {
-        statusEl.textContent = t('loadingSchools');
-        allSchoolsCache = await fetchJson('/api/kindergartens');
-        renderFilterOptions();
-        updateMetaStats();
-        const filtered = applyFilters(allSchoolsCache);
-        const groups = groupTopByArea(filtered, 5);
-        renderHome(groups);
-      }
+        el.searchInput.addEventListener(
+          'input',
+          debounce(() => {
+            const query = el.searchInput.value.trim();
+            const url = query ? `/?q=${encodeURIComponent(query)}` : '/';
+            navigate(url, { replace: state.view === 'search', scroll: false });
+          }, 200),
+        );
 
-      async function loadProfile(id) {
-        statusEl.textContent = t('loadingProfile');
-        const school = await fetchJson(`/api/kindergartens/${id}`);
-        renderProfile(school);
-      }
+        el.filterArea.addEventListener('change', () => {
+          const area = el.filterArea.value;
+          navigate(area ? `/?area=${encodeURIComponent(area)}` : '/');
+        });
 
-      async function loadArea(areaKey) {
-        statusEl.textContent = t('loadingSchools');
-        const schools = await fetchJson(`/api/kindergartens?area=${encodeURIComponent(areaKey)}`);
-        const filtered = applyFilters(schools, areaKey);
-        renderAreaDetail(areaKey, filtered);
-      }
+        // Filters narrow the lists; a school profile doesn't change.
+        el.filterType.addEventListener('change', () => {
+          state.filters.type = el.filterType.value;
+          if (state.view !== 'profile') route();
+        });
 
-      function syncFilterStateFromInputs() {
-        filterState = {
-          area: filterArea.value,
-          type: filterType.value,
-          minScore: filterScore.value,
-        };
-      }
+        el.filterScore.addEventListener(
+          'input',
+          debounce(() => {
+            state.filters.minScore = el.filterScore.value;
+            if (state.view !== 'profile') route();
+          }, 250),
+        );
 
-      googleLoginBtn.addEventListener('click', () => {
-        window.location.href = '/api/auth/google';
-      });
+        el.filterReset.addEventListener('click', () => {
+          state.filters = { type: '', minScore: '' };
+          el.filterType.value = '';
+          el.filterScore.value = '';
+          el.searchInput.value = '';
+          navigate('/');
+        });
 
-      sendCodeBtn.addEventListener('click', async () => {
-        try {
-          await sendEmailVerificationCode();
-        } catch (error) {
-          setVerifyMessage(error?.message || t('failed'));
-        }
-      });
+        el.googleLoginBtn.addEventListener('click', startLogin);
+        el.logoutBtn.addEventListener('click', logout);
+        el.sendCodeBtn.addEventListener('click', sendVerificationCode);
+        el.verifyCodeBtn.addEventListener('click', verifyEmailCode);
+        el.verifyCodeInput.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') verifyEmailCode();
+        });
 
-      verifyCodeBtn.addEventListener('click', async () => {
-        try {
-          await verifyEmailCode();
-        } catch (error) {
-          setVerifyMessage(error?.message || t('failed'));
-        }
-      });
+        el.chatToggle.addEventListener('click', () => toggleChat(el.chatPanel.classList.contains('hidden')));
+        el.chatClose.addEventListener('click', () => toggleChat(false));
+        el.chatForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const text = el.chatInput.value.trim();
+          if (!text) return;
+          appendChatMessage('user', text);
+          el.chatInput.value = '';
+          handleChatIntent(text);
+        });
 
-      chatToggle.addEventListener('click', () => {
-        chatPanel.classList.toggle('hidden');
-      });
+        // ---------- start ----------
 
-      chatSend.addEventListener('click', async () => {
-        const text = String(chatInput.value || '').trim();
-        if (!text) return;
-        appendChatMessage('user', text);
-        chatInput.value = '';
-        await handleChatIntent(text);
-      });
+        async function init() {
+          state.lang = storage.get('lang') === 'en' ? 'en' : 'zh';
 
-      chatInput.addEventListener('keydown', async (event) => {
-        if (event.key !== 'Enter') return;
-        event.preventDefault();
-        const text = String(chatInput.value || '').trim();
-        if (!text) return;
-        appendChatMessage('user', text);
-        chatInput.value = '';
-        await handleChatIntent(text);
-      });
-
-      langToggle.addEventListener('click', () => {
-        currentLang = currentLang === 'zh' ? 'en' : 'zh';
-        applyLanguageUI();
-
-        if (!profileView.classList.contains('hidden') && cachedProfile) {
-          renderProfile(cachedProfile);
-        } else if (!areaView.classList.contains('hidden') && cachedAreaSchools.length) {
-          renderAreaDetail(cachedAreaKey, cachedAreaSchools);
-        } else if (cachedGroups.length) {
-          renderHome(cachedGroups);
-        }
-      });
-
-      filterApply.addEventListener('click', async () => {
-        syncFilterStateFromInputs();
-
-        const url = new URL(window.location.href);
-        const schoolId = url.searchParams.get('school');
-        const areaKey = url.searchParams.get('area');
-
-        if (schoolId) {
-          await loadProfile(schoolId);
-          return;
-        }
-
-        if (areaKey) {
-          await loadArea(areaKey);
-          return;
-        }
-
-        await loadHome();
-      });
-
-      filterReset.addEventListener('click', async () => {
-        filterState = { area: '', type: '', minScore: '' };
-        renderFilterOptions();
-
-        const url = new URL(window.location.href);
-        const schoolId = url.searchParams.get('school');
-        const areaKey = url.searchParams.get('area');
-
-        if (schoolId) {
-          await loadProfile(schoolId);
-          return;
-        }
-
-        if (areaKey) {
-          await loadArea(areaKey);
-          return;
-        }
-
-        await loadHome();
-      });
-
-      areaContainer.addEventListener('click', async (event) => {
-        const target = event.target;
-        if (!(target instanceof HTMLElement)) return;
-
-        const areaButton = target.closest('[data-area-key]');
-        if (areaButton) {
-          const areaKey = areaButton.getAttribute('data-area-key');
-          if (!areaKey) return;
-          history.pushState({ areaKey }, '', `/?area=${encodeURIComponent(areaKey)}`);
-          await loadArea(areaKey);
-          return;
-        }
-
-        const row = target.closest('[data-school-id]');
-        if (!row) return;
-
-        const schoolId = row.getAttribute('data-school-id');
-        if (!schoolId) return;
-
-        history.pushState({ schoolId }, '', `/?school=${encodeURIComponent(schoolId)}`);
-        await loadProfile(schoolId);
-      });
-
-      backBtn.addEventListener('click', async () => {
-        const url = new URL(window.location.href);
-        const areaKey = url.searchParams.get('area');
-        if (areaKey) {
-          history.pushState({ areaKey }, '', `/?area=${encodeURIComponent(areaKey)}`);
-          await loadArea(areaKey);
-          return;
-        }
-
-        history.pushState({}, '', '/');
-        await loadHome();
-      });
-
-      backToHomeBtn.addEventListener('click', async () => {
-        history.pushState({}, '', '/');
-        await loadHome();
-      });
-
-      areaTableBody.addEventListener('click', async (event) => {
-        const target = event.target;
-        if (!(target instanceof HTMLElement)) return;
-
-        const row = target.closest('[data-school-id]');
-        if (!row) return;
-
-        const schoolId = row.getAttribute('data-school-id');
-        if (!schoolId) return;
-
-        const areaKey = cachedAreaKey ? `&area=${encodeURIComponent(cachedAreaKey)}` : '';
-        history.pushState({ schoolId }, '', `/?school=${encodeURIComponent(schoolId)}${areaKey}`);
-        await loadProfile(schoolId);
-      });
-
-      window.addEventListener('popstate', async () => {
-        const url = new URL(window.location.href);
-        const schoolId = url.searchParams.get('school');
-        const areaKey = url.searchParams.get('area');
-        if (schoolId) {
-          await loadProfile(schoolId);
-        } else if (areaKey) {
-          await loadArea(areaKey);
-        } else {
-          await loadHome();
-        }
-      });
-
-      (async () => {
-        try {
-          applyLanguageUI();
-          await loadAuthMe();
-          await loadCaptchaConfig();
-          try {
-            await loadCaptchaScript();
-            renderCaptchaWidget();
-          } catch {
-            setVerifyMessage(t('captchaNotConfigured'));
+          const params = new URLSearchParams(window.location.search);
+          const loginFailed = params.get('login') === 'failed';
+          if (loginFailed) {
+            params.delete('login');
+            const rest = params.toString();
+            window.history.replaceState(null, '', rest ? `/?${rest}` : '/');
           }
-          setupAds();
-          const url = new URL(window.location.href);
-          const schoolId = url.searchParams.get('school');
-          const areaKey = url.searchParams.get('area');
-          if (schoolId) await loadProfile(schoolId);
-          else if (areaKey) await loadArea(areaKey);
-          else await loadHome();
-        } catch (error) {
-          statusEl.textContent = error.message || t('failed');
+
+          applyStaticTranslations();
+          const [config, user] = await Promise.all([
+            fetchJson('/api/auth/captcha-config').catch(() => null),
+            fetchJson('/api/auth/me').catch(() => null),
+          ]);
+          if (config) state.config = config;
+          state.user = user;
+          renderAccount();
+
+          await route();
+          if (loginFailed) setStatus(t('loginFailed'), 'error');
         }
+
+        init();
       })();
     </script>
   </body>

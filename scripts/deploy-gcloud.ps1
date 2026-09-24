@@ -196,7 +196,9 @@ $envVars = @(
     "PORT=8080",
     "NODE_ENV=production",
     "JWT_SECRET=$JWT_SECRET",
-    "DATABASE_URL=file:./prisma/dev.db",
+    # SQLite paths are relative to prisma/, so this is the bundled /app/prisma/dev.db.
+    # "file:./prisma/dev.db" pointed at a missing file and the site fell back to sample data.
+    "DATABASE_URL=file:./dev.db",
     "EMAIL_OTP_SECRET=$([System.Convert]::ToBase64String((1..32 | ForEach-Object { [byte](Get-Random -Max 256) })))",
     "CAPTCHA_PROVIDER=recaptcha",
     "REQUIRE_EMAIL_VERIFIED=false",
@@ -216,6 +218,9 @@ if ($CAPTCHA_SITE_KEY) {
 $envVarString = $envVars -join ','
 
 # Deploy from source (Cloud Build will use the Dockerfile)
+# The SQLite database lives inside the container: every instance gets its own copy, and new
+# reviews are lost whenever the instance is replaced. One instance keeps all visitors on the
+# same copy; use an external PostgreSQL database to keep data permanently.
 & gcloud run deploy $SERVICE_NAME `
     --source . `
     --region $REGION `
@@ -223,7 +228,7 @@ $envVarString = $envVars -join ','
     --memory 512Mi `
     --cpu 1 `
     --min-instances 0 `
-    --max-instances 2 `
+    --max-instances 1 `
     --set-env-vars "$envVarString" `
     --quiet
 
@@ -271,6 +276,7 @@ if ($SERVICE_URL) {
     }
 
     Write-Host "`n  Your site is live at: $SERVICE_URL" -ForegroundColor Green
+    Write-Host "  NOTE: reviews are stored in SQLite inside the container and are lost on every redeploy or restart." -ForegroundColor Yellow
 } else {
     Write-Host "`n  Deployment may have failed. Check:" -ForegroundColor Red
     Write-Host "  gcloud run services list --region $REGION" -ForegroundColor Gray

@@ -1,10 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import { parse } from 'csv-parse/sync';
 import { prisma } from '../models/prismaClient';
-
-dotenv.config();
 
 type CsvRow = {
   name: string;
@@ -44,20 +42,20 @@ async function run() {
       create: { name: row.area },
     });
 
-    await (prisma.kindergarten as any).upsert({
+    await prisma.kindergarten.upsert({
       where: {
         externalId: `csv-${row.name}`,
       },
       update: {
         areaId: area.id,
-        type: normalizeType(row.type) as any,
+        type: normalizeType(row.type),
       },
       create: {
         externalId: `csv-${row.name}`,
         name: row.name,
         address: row.address,
         areaId: area.id,
-        type: normalizeType(row.type) as any,
+        type: normalizeType(row.type),
       },
     });
 

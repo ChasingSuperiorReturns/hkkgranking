@@ -47,7 +47,12 @@ export async function verifyCaptchaToken(token: string | undefined, remoteIp?: s
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body,
+      signal: AbortSignal.timeout(8000),
     });
+
+    if (!response.ok) {
+      return { success: false, reason: 'captcha-verify-failed' };
+    }
 
     const json = (await response.json()) as { success?: boolean };
     return { success: Boolean(json.success), reason: json.success ? undefined : 'provider-rejected' };
